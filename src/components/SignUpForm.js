@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import TextField from '@material-ui/core/TextField';
@@ -21,7 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUpForm = () => {
+const SignUpForm = ({ handleClose }) => {
+  SignUpForm.propTypes = {
+    handleClose: PropTypes.func,
+  };
   const classes = useStyles();
   return (
     <form className={classes.root}>
@@ -30,7 +35,9 @@ const SignUpForm = () => {
       <TextField label="Email" variant="filled" type="email" required />
       <TextField label="Password" variant="filled" type="password" required />
       <div>
-        <Button variant="contained">Cancel</Button>
+        <Button variant="contained" onClick={handleClose}>
+          Cancel
+        </Button>
         <Button type="submit" variant="contained" color="primary">
           Signup
         </Button>

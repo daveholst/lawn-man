@@ -9,7 +9,6 @@ import SignUpForm from './SignUpForm';
 const ModalDialog = ({ open, handleClose }) => (
   // props received from App.js
   <Dialog open={open} onClose={handleClose}>
-    {/* form to be created */}
     <SignUpForm handleClose={handleClose} />
   </Dialog>
 );
