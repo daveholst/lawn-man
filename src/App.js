@@ -1,29 +1,61 @@
-import { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import SignUpDialog from './components/SignUpDialog';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+// import apolloClient
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
+import LandingPage from './components/LandingPage';
+import Dashboard from './components/Dashboard';
+import Auth from './utils/authUtils';
+
+// build graphQl endpoint
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+// Construct request middleware that will attach the JWT token to every request as an `authorization` header
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('id_token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+// Create apollo client
+const apolloClient = new ApolloClient({
+  // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 const App = () => {
-  // declare a new state variable for modal open
-  const [signUpOpen, setSignUpOpen] = useState(false);
-
-  // function to handle signup modal open
-  const handleSignUpOpen = () => {
-    setSignUpOpen(true);
-  };
-
-  // function to handle signup modal close
-  const handleSignUpClose = () => {
-    setSignUpOpen(false);
-  };
+  const [isAuthenticated, setAuthenticated] = useState(false);
+  useEffect(() => {
+    if (Auth.loggedIn()) setAuthenticated(true);
+  }, [isAuthenticated]);
 
   return (
-    <div className="App">
-      <Button variant="contained" color="primary" onClick={handleSignUpOpen}>
-        Signup
-      </Button>
-      {/* // display the modal and pa ss props */}
-      <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
-    </div>
+    <ApolloProvider ApolloProvider client={apolloClient}>
+      <Router>
+        <Route
+          exact
+          path="/"
+          component={isAuthenticated ? Dashboard : LandingPage}
+        />
+        <Route exact path="/dashboard" component={Dashboard} />
+      </Router>
+    </ApolloProvider>
   );
 };
 
