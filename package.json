@@ -25,7 +25,10 @@
   "eslintConfig": {
     "extends": [
       "wesbos"
-    ]
+    ],
+    "rules": {
+      "class-methods-use-this": 1
+    }
   },
   "browserslist": {
     "production": [
