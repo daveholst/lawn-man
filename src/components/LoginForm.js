@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Auth from '../utils/authUtils';
-import { ADD_USER } from '../utils/apiMutations';
+import { LOGIN_USER } from '../utils/apiMutations';
 
 // styling
 const useStyles = makeStyles((theme) => ({
@@ -31,8 +31,6 @@ const useStyles = makeStyles((theme) => ({
 const SignUpForm = ({ handleClose }) => {
   // form state managment
   const [userFormData, setUserFormData] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
     password: '',
   });
@@ -40,8 +38,8 @@ const SignUpForm = ({ handleClose }) => {
   const history = useHistory();
 
   // mutation for create user
-  const [createUser, { _createUserError, _createUserData }] =
-    useMutation(ADD_USER);
+  const [loginUser, { _loginUserError, _loginUserData }] =
+    useMutation(LOGIN_USER);
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
@@ -55,14 +53,14 @@ const SignUpForm = ({ handleClose }) => {
     handleClose();
     // add user to db through api
     try {
-      const { data } = await createUser({
+      const { data } = await loginUser({
         variables: { ...userFormData },
       });
       if (!data) {
         throw new Error('something went wrong!');
       }
-
-      const { token, user } = data.addUser;
+      console.log(data);
+      const { token, user } = data.login;
       // TODO apply login
       console.log(token, user);
       // login and save token
