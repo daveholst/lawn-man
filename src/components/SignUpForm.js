@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
@@ -35,6 +36,8 @@ const SignUpForm = ({ handleClose }) => {
     email: '',
     password: '',
   });
+  // use History hook
+  const history = useHistory();
 
   // mutation for create user
   const [createUser, { _createUserError, _createUserData }] =
@@ -50,7 +53,6 @@ const SignUpForm = ({ handleClose }) => {
     e.preventDefault();
     console.log(userFormData);
     handleClose();
-
     // add user to db through api
     try {
       const { data } = await createUser({
@@ -63,7 +65,10 @@ const SignUpForm = ({ handleClose }) => {
       const { token, user } = data.addUser;
       // TODO apply login
       console.log(token, user);
-      // Auth.login(token);
+      // login and save token
+      Auth.login(token);
+      // redirect to dashboard
+      // history.push('/dashboard/');
     } catch (err) {
       console.error(err);
       // TODO alert front end on failure

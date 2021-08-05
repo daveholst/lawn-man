@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // import apolloClient
 import {
@@ -10,6 +11,8 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import LandingPage from './components/LandingPage';
+import Dashboard from './components/Dashboard';
+import Auth from './utils/authUtils';
 
 // build graphQl endpoint
 const httpLink = createHttpLink({
@@ -36,10 +39,24 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const App = () => (
-  <ApolloProvider client={apolloClient}>
-    <LandingPage />
-  </ApolloProvider>
-);
+const App = () => {
+  const [isAuthenticated, setAuthenticated] = useState(false);
+  useEffect(() => {
+    if (Auth.loggedIn()) setAuthenticated(true);
+  }, [isAuthenticated]);
+
+  return (
+    <ApolloProvider ApolloProvider client={apolloClient}>
+      <Router>
+        <Route
+          exact
+          path="/"
+          component={isAuthenticated ? Dashboard : LandingPage}
+        />
+        <Route exact path="/dashboard" component={Dashboard} />
+      </Router>
+    </ApolloProvider>
+  );
+};
 
 export default App;
