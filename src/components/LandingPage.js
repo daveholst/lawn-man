@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { Container, Button, CssBaseline, Typography } from '@material-ui/core';
+import {
+  Container,
+  Button,
+  CssBaseline,
+  Typography,
+  Box,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SignUpDialog from './SignUpDialog';
 import LoginDialog from './LoginDialog';
@@ -26,10 +32,12 @@ const useStyles = makeStyles((theme) => ({
   welcomeBox: {
     background: 'rgba(255,255,255,.6)',
     padding: '1rem',
+    borderRadius: '6px',
   },
   buttonsWrapper: {
     display: 'flex',
     flexDirection: 'row',
+    // justifyContent: 'space-evenly',
   },
   buttons: {
     paddingRight: '1rem',
@@ -61,7 +69,7 @@ const App = () => {
       <div className={classes.root}>
         <NavBar loginOnClick={handleLoginOpen} />
         <div className={classes.welcome}>
-          <div className={classes.welcomeBox}>
+          <Box mx="auto" className={classes.welcomeBox}>
             <Typography variant="h1">
               Welcome to <span>Lawn Man</span>
             </Typography>
@@ -73,13 +81,15 @@ const App = () => {
             </Typography>
             <br />
             <div className={classes.buttonsWrapper}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSignUpOpen}
-              >
-                Signup
-              </Button>
+              <Box mr={2}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSignUpOpen}
+                >
+                  Signup
+                </Button>
+              </Box>
               <Button
                 variant="contained"
                 color="primary"
@@ -88,7 +98,7 @@ const App = () => {
                 Login
               </Button>
             </div>
-          </div>
+          </Box>
         </div>
         {/* // display the modal and pass props */}
       </div>
