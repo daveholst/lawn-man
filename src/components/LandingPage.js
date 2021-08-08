@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import SignUpDialog from './SignUpDialog';
 import LoginDialog from './LoginDialog';
 import './LandingPage.css';
+import NavBar from './NavBar';
 
 const App = () => {
   // declare a new state variable for modal open
@@ -24,17 +25,20 @@ const App = () => {
   };
 
   return (
-    <div className="Landing-Page">
-      <Button variant="contained" color="primary" onClick={handleSignUpOpen}>
-        Signup
-      </Button>
-      <Button variant="contained" color="primary" onClick={handleLoginOpen}>
-        Login
-      </Button>
-      {/* // display the modal and pass props */}
+    <>
+      <NavBar loginOnClick={handleLoginOpen} />
+      <div className="Landing-Page">
+        <Button variant="contained" color="primary" onClick={handleSignUpOpen}>
+          Signup
+        </Button>
+        <Button variant="contained" color="primary" onClick={handleLoginOpen}>
+          Login
+        </Button>
+        {/* // display the modal and pass props */}
+      </div>
       <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
       <LoginDialog open={loginOpen} handleClose={handleLoginClose} />
-    </div>
+    </>
   );
 };
 

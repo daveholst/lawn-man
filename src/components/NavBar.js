@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,8 +22,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = () => {
+const NavBar = ({ loginOnClick }) => {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <AppBar position="sticky">
       <Toolbar variant="dense">
@@ -29,16 +41,34 @@ const NavBar = () => {
           className={classes.menuButton}
           color="inherit"
           aria-label="menu"
+          onClick={handleClick}
         >
           <MenuIcon />
         </IconButton>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={handleClose}>Logout</MenuItem>
+        </Menu>
         <Typography variant="h6" className={classes.title}>
-          News
+          Home
         </Typography>
-        <Button color="inherit">Login</Button>
+        <Button color="inherit" onClick={loginOnClick}>
+          Login
+        </Button>
       </Toolbar>
     </AppBar>
   );
+};
+
+NavBar.propTypes = {
+  loginOnClick: PropTypes.func,
 };
 
 export default NavBar;
