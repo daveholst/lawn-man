@@ -57,7 +57,7 @@ const NavBar = ({ loginOnClick }) => {
           <MenuItem onClick={handleClose}>Logout</MenuItem>
         </Menu>
         <Typography variant="h6" className={classes.title}>
-          Home
+          Lawn Manager
         </Typography>
         <Button color="inherit" onClick={loginOnClick}>
           Login

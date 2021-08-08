@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '@material-ui/core/Button';
+import { Container, Button } from '@material-ui/core';
 import SignUpDialog from './SignUpDialog';
 import LoginDialog from './LoginDialog';
 import './LandingPage.css';
@@ -27,7 +27,8 @@ const App = () => {
   return (
     <>
       <NavBar loginOnClick={handleLoginOpen} />
-      <div className="Landing-Page">
+      {/* <div className="Landing-Page"> */}
+      <Container maxWidth="sm">
         <Button variant="contained" color="primary" onClick={handleSignUpOpen}>
           Signup
         </Button>
@@ -35,7 +36,8 @@ const App = () => {
           Login
         </Button>
         {/* // display the modal and pass props */}
-      </div>
+      </Container>
+      {/* </div> */}
       <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
       <LoginDialog open={loginOpen} handleClose={handleLoginClose} />
     </>
