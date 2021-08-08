@@ -13,6 +13,7 @@ import { setContext } from '@apollo/client/link/context';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import Auth from './utils/authUtils';
+import NavBar from './components/NavBar';
 
 // build graphQl endpoint
 const httpLink = createHttpLink({
@@ -50,6 +51,7 @@ const App = () => {
   return (
     <ApolloProvider ApolloProvider client={apolloClient}>
       <Router>
+        <NavBar />
         <Route
           exact
           path="/"
