@@ -11,6 +11,12 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Nunito',
+    // fontSize: 32,
+    h1: {
+      fontFamily: 'arial',
+      fontWeight: 700,
+      fontSize: '3rem',
+    },
   },
 });
 
