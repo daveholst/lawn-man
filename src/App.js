@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { CssBaseline } from '@material-ui/core';
 
 // import apolloClient
 import {
@@ -49,14 +50,16 @@ const App = () => {
 
   return (
     <ApolloProvider ApolloProvider client={apolloClient}>
-      <Router>
-        <Route
-          exact
-          path="/"
-          component={isAuthenticated ? Dashboard : LandingPage}
-        />
-        <Route exact path="/dashboard" component={Dashboard} />
-      </Router>
+      <CssBaseline>
+        <Router>
+          <Route
+            exact
+            path="/"
+            component={isAuthenticated ? Dashboard : LandingPage}
+          />
+          <Route exact path="/dashboard" component={Dashboard} />
+        </Router>
+      </CssBaseline>
     </ApolloProvider>
   );
 };
