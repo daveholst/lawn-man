@@ -51,7 +51,6 @@ const App = () => {
   return (
     <ApolloProvider ApolloProvider client={apolloClient}>
       <Router>
-        <NavBar />
         <Route
           exact
           path="/"
