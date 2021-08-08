@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appbar: {
     opacity: 0.8,
+    fontFamily: 'Nunito ',
   },
 
   menuButton: {
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    fontWeight: 600,
   },
 }));
 
@@ -38,36 +40,38 @@ const NavBar = ({ loginOnClick }) => {
     setAnchorEl(null);
   };
   return (
-    <AppBar className={classes.appbar} position="sticky" elevation={0}>
-      <Toolbar variant="dense">
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-          onClick={handleClick}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
-        </Menu>
-        <Typography variant="h6" className={classes.title}>
-          Lawn Manager
-        </Typography>
-        <Button color="inherit" onClick={loginOnClick}>
-          Login
-        </Button>
-      </Toolbar>
-    </AppBar>
+    <>
+      <AppBar className={classes.appbar} position="sticky" elevation={0}>
+        <Toolbar variant="dense">
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            onClick={handleClick}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem>
+          </Menu>
+          <Typography variant="h6" className={classes.title}>
+            Lawn Manager
+          </Typography>
+          <Button color="inherit" onClick={loginOnClick}>
+            Login
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
 

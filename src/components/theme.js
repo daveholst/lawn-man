@@ -9,6 +9,9 @@ const theme = createTheme({
       main: '#475657',
     },
   },
+  typography: {
+    fontFamily: 'Nunito',
+  },
 });
 
 export default theme;
