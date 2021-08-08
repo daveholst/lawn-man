@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  appbar: {
+    opacity: 0.8,
+  },
+
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -34,7 +38,7 @@ const NavBar = ({ loginOnClick }) => {
     setAnchorEl(null);
   };
   return (
-    <AppBar position="sticky">
+    <AppBar className={classes.appbar} position="sticky" elevation={0}>
       <Toolbar variant="dense">
         <IconButton
           edge="start"
