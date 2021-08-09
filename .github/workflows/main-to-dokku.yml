@@ -4,7 +4,7 @@ name: Deploy to dokku on holst.club
 on:
   push:
     branches:
-      - deploy
+      - main
 
 jobs:
   deploy:
