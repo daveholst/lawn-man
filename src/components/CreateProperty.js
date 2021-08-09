@@ -10,7 +10,9 @@ import {
   TextField,
   Button,
   Select,
+  Link,
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreateProperty = () => {
+  const history = useHistory();
+
   const [propertyFormData, setPropertyFormData] = useState({
     propertyName: '',
     address: '',
@@ -51,6 +55,7 @@ const CreateProperty = () => {
     // TODO: add some form validation? check material-UI docs.
     e.preventDefault();
     console.log(propertyFormData);
+    history.push('/dashboard');
     try {
       // TODO Send data to DB
       // const { data } = await createUser({
@@ -121,6 +126,10 @@ const CreateProperty = () => {
             <option value="Tropical">Tropical</option>
           </Select>
         </FormControl>
+        <Link href="https://www.gardenexpress.com.au/australian-climate-guide/">
+          If you are unsure of your climate zone, click here for further
+          information.
+        </Link>
         <Button
           className={classes.button}
           type="submit"
