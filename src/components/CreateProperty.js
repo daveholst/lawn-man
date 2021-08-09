@@ -11,6 +11,7 @@ import {
   Button,
   Select,
   Link,
+  Divider,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
@@ -77,7 +78,8 @@ const CreateProperty = () => {
   return (
     <Container maxWidth="sm" className={classes.root}>
       <Typography variant="h2">Create a Property</Typography>
-      <hr />
+      <br />
+      <Divider />
       <br />
       <form className={classes.form}>
         <TextField
