@@ -1,5 +1,5 @@
 
-name: Deploy to dokku on busyboys.co
+name: Deploy to dokku on holst.club
 
 on:
   push:
