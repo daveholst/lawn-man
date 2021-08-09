@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,15 +44,20 @@ const NavBar = ({ loginOnClick }) => {
     <>
       <AppBar className={classes.appbar} position="sticky" elevation={0}>
         <Toolbar variant="dense">
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={handleClick}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Lawn Manager
+          </Typography>
+          <Box mr={-3}>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={handleClick}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
@@ -63,12 +69,6 @@ const NavBar = ({ loginOnClick }) => {
             <MenuItem onClick={handleClose}>My account</MenuItem>
             <MenuItem onClick={handleClose}>Logout</MenuItem>
           </Menu>
-          <Typography variant="h6" className={classes.title}>
-            Lawn Manager
-          </Typography>
-          <Button color="inherit" onClick={loginOnClick}>
-            Login
-          </Button>
         </Toolbar>
       </AppBar>
     </>
