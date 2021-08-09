@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
@@ -36,6 +36,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreateProperty = () => {
+  const [propertyFormData, setPropertyFormData] = useState({
+    propertyName: '',
+    address: '',
+    climate: '',
+  });
+  // TODO add mutation
+
+  const handleInputChange = async (e) => {
+    const { name, value } = e.target;
+    setPropertyFormData({ ...propertyFormData, [name]: value });
+  };
+  const handleSubmit = async (e) => {
+    // TODO: add some form validation? check material-UI docs.
+    e.preventDefault();
+    console.log(propertyFormData);
+    try {
+      // TODO Send data to DB
+      // const { data } = await createUser({
+      //   variables: { ...userFormData },
+      // });
+      // if (!data) {
+      //   throw new Error('something went wrong!');
+      // }
+    } catch (err) {
+      console.error(err);
+      // TODO alert front end on failure
+      // setShowAlert(true);
+    }
+  };
   const classes = useStyles();
   return (
     <Container maxWidth="sm" className={classes.root}>
@@ -45,17 +74,19 @@ const CreateProperty = () => {
       <form className={classes.form}>
         <TextField
           className={classes.field}
-          id="outlined-basic"
+          name="propertyName"
           label="Property Name"
           variant="outlined"
           fullWidth
+          onChange={handleInputChange}
         />
         <TextField
           className={classes.field}
-          id="outlined-basic"
+          name="address"
           label="Property Address"
           variant="outlined"
           fullWidth
+          onChange={handleInputChange}
         />
         {/* <InputLabel htmlFor="outlined-age-native-simple">Age</InputLabel> */}
         <FormControl>
@@ -75,8 +106,9 @@ const CreateProperty = () => {
             // onChange={handleChange}
             // onChange=""
             label="Climate Zone"
+            onChange={handleInputChange}
             inputProps={{
-              name: 'age',
+              name: 'climate',
               id: 'outlined-age-native-simple',
             }}
           >
@@ -91,6 +123,8 @@ const CreateProperty = () => {
         </FormControl>
         <Button
           className={classes.button}
+          type="submit"
+          onClick={handleSubmit}
           variant="contained"
           color="secondary"
           disableElevation
