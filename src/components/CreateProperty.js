@@ -43,6 +43,7 @@ const CreateProperty = () => {
   const [propertyFormData, setPropertyFormData] = useState({
     propertyName: '',
     address: '',
+    juiceBoxId: '',
     climate: '',
   });
   // TODO add mutation
@@ -89,6 +90,14 @@ const CreateProperty = () => {
           className={classes.field}
           name="address"
           label="Property Address"
+          variant="outlined"
+          fullWidth
+          onChange={handleInputChange}
+        />
+        <TextField
+          className={classes.field}
+          name="juiceBoxId"
+          label="Juice Box ID"
           variant="outlined"
           fullWidth
           onChange={handleInputChange}

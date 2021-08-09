@@ -20,8 +20,8 @@ import LoginDialog from './components/LoginDialog';
 import NavBar from './components/NavBar';
 // build graphQl endpoint
 const httpLink = createHttpLink({
-  // uri: '/graphql',
-  uri: 'https://lawn-man-server.holst.club/graphql',
+  uri: '/graphql',
+  // uri: 'https://lawn-man-server.holst.club/graphql',
   // uri: 'https://lawn-man-server.web:5000/graphql',
 });
 
