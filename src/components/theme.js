@@ -13,9 +13,14 @@ const theme = createTheme({
     fontFamily: 'Nunito',
     // fontSize: 32,
     h1: {
-      fontFamily: 'arial',
+      fontFamily: 'Open Sans',
       fontWeight: 700,
-      fontSize: '3rem',
+      fontSize: '2.5rem',
+    },
+    h2: {
+      fontFamily: 'Open Sans',
+      fontWeight: 700,
+      fontSize: '2rem',
     },
   },
 });
