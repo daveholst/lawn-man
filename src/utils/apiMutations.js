@@ -13,11 +13,44 @@ export const ADD_USER = gql`
       email: $email
       password: $password
     ) {
+      # !do i need this token??
       token
       user {
         firstName
         lastName
         email
+      }
+    }
+  }
+`;
+
+export const ADD_PROPERTY = gql`
+  mutation AddProperty(
+    $propertyName: String
+    $address: String
+    $juiceBoxId: String
+    $openSprinklerAddress: String
+    $openSprinklerKey: String
+    $climate: String
+  ) {
+    addProperty(
+      propertyName: $propertyName
+      address: $address
+      juiceBoxId: $juiceBoxId
+      openSprinklerAddress: $openSprinklerAddress
+      openSprinklerKey: $openSprinklerKey
+      climate: $climate
+    ) {
+      token
+      user {
+        properties {
+          propertyName
+          address
+          juiceBoxId
+          openSprinklerAddress
+          openSprinklerKey
+          climate
+        }
       }
     }
   }

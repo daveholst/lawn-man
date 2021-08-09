@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
@@ -13,7 +15,7 @@ import {
   Link,
   Divider,
 } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { ADD_PROPERTY } from '../utils/apiMutations';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
 const CreateProperty = () => {
   const history = useHistory();
 
+  const [createProperty, { _createPropertyError, _createPropertyData }] =
+    useMutation(ADD_PROPERTY);
+
   const [propertyFormData, setPropertyFormData] = useState({
     propertyName: '',
     address: '',
@@ -62,12 +67,12 @@ const CreateProperty = () => {
     history.push('/dashboard');
     try {
       // TODO Send data to DB
-      // const { data } = await createUser({
-      //   variables: { ...userFormData },
-      // });
-      // if (!data) {
-      //   throw new Error('something went wrong!');
-      // }
+      const { data } = await createProperty({
+        variables: { ...propertyFormData },
+      });
+      if (!data) {
+        throw new Error('something went wrong!');
+      }
     } catch (err) {
       console.error(err);
       // TODO alert front end on failure
