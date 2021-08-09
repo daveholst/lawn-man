@@ -14,6 +14,7 @@ import { setContext } from '@apollo/client/link/context';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import Auth from './utils/authUtils';
+import CreateGarden from './components/CreateGarden';
 
 // build graphQl endpoint
 const httpLink = createHttpLink({
@@ -58,6 +59,7 @@ const App = () => {
             component={isAuthenticated ? Dashboard : LandingPage}
           />
           <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/create-garden" component={CreateGarden} />
         </Router>
       </CssBaseline>
     </ApolloProvider>

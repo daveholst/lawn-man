@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   welcomeBox: {
-    background: 'rgba(255,255,255,.6)',
+    background: 'rgba(255,255,255,.7)',
     padding: '1rem',
     borderRadius: '6px',
   },
