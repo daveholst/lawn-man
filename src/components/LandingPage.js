@@ -7,6 +7,7 @@ import {
   Box,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import SignUpDialog from './SignUpDialog';
 import LoginDialog from './LoginDialog';
 // import './LandingPage.css';
@@ -15,6 +16,7 @@ import NavBar from './NavBar';
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: '100vh',
+    marginTop: '-48px',
     backgroundImage: `url(${`${process.env.PUBLIC_URL}./assets/grass-bg.jpg`})`,
     backgroundRepeat: 'no-repate',
     backgroundSize: 'cover',
@@ -44,30 +46,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App = () => {
+const LandingPage = ({ handleLoginOpen, handleSignUpOpen }) => {
   const classes = useStyles();
-  // declare a new state variable for modal open
-  const [signUpOpen, setSignUpOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
-  // function to handle signup modal open
-  const handleSignUpOpen = () => {
-    setSignUpOpen(true);
-  };
-  const handleSignUpClose = () => {
-    setSignUpOpen(false);
-  };
-  // function to handle login modal open
-  const handleLoginOpen = () => {
-    setLoginOpen(true);
-  };
-  const handleLoginClose = () => {
-    setLoginOpen(false);
-  };
+  // // declare a new state variable for modal open
+  // const [signUpOpen, setSignUpOpen] = useState(false);
+  // const [loginOpen, setLoginOpen] = useState(false);
+  // // function to handle signup modal open
+  // const handleSignUpOpen = () => {
+  //   setSignUpOpen(true);
+  // };
+  // const handleSignUpClose = () => {
+  //   setSignUpOpen(false);
+  // };
+  // // function to handle login modal open
+  // const handleLoginOpen = () => {
+  //   setLoginOpen(true);
+  // };
+  // const handleLoginClose = () => {
+  //   setLoginOpen(false);
+  // };
 
   return (
     <>
       <div className={classes.root}>
-        <NavBar loginOnClick={handleLoginOpen} />
+        {/* <NavBar loginOnClick={handleLoginOpen} /> */}
         <div className={classes.welcome}>
           <Box mx="auto" className={classes.welcomeBox}>
             <Typography variant="h1">
@@ -102,10 +104,14 @@ const App = () => {
         </div>
         {/* // display the modal and pass props */}
       </div>
-      <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
-      <LoginDialog open={loginOpen} handleClose={handleLoginClose} />
+      {/* <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
+      <LoginDialog open={loginOpen} handleClose={handleLoginClose} /> */}
     </>
   );
 };
 
-export default App;
+LandingPage.propTypes = {
+  handleLoginOpen: PropTypes.func,
+  handleSignUpOpen: PropTypes.func,
+};
+export default LandingPage;

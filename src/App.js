@@ -15,7 +15,9 @@ import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import Auth from './utils/authUtils';
 import CreateGarden from './components/CreateGarden';
-
+import SignUpDialog from './components/SignUpDialog';
+import LoginDialog from './components/LoginDialog';
+import NavBar from './components/NavBar';
 // build graphQl endpoint
 const httpLink = createHttpLink({
   // uri: '/graphql',
@@ -48,19 +50,51 @@ const App = () => {
   useEffect(() => {
     if (Auth.loggedIn()) setAuthenticated(true);
   }, [isAuthenticated]);
+  // modal handlers
+  // declare a new state variable for modal open
+  const [signUpOpen, setSignUpOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  // function to handle signup modal open
+  const handleSignUpOpen = () => {
+    setSignUpOpen(true);
+  };
+  const handleSignUpClose = () => {
+    setSignUpOpen(false);
+  };
+  // function to handle login modal open
+  const handleLoginOpen = () => {
+    setLoginOpen(true);
+  };
+  const handleLoginClose = () => {
+    setLoginOpen(false);
+  };
 
   return (
     <ApolloProvider ApolloProvider client={apolloClient}>
       <CssBaseline>
+        <NavBar loginOnClick={handleLoginOpen} />
+
         <Router>
           <Route
             exact
             path="/"
-            component={isAuthenticated ? Dashboard : LandingPage}
+            render={() =>
+              isAuthenticated ? (
+                <Dashboard />
+              ) : (
+                <LandingPage
+                  handleLoginOpen={handleLoginOpen}
+                  handleSignUpOpen={handleSignUpOpen}
+                />
+              )
+            }
           />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/create-garden" component={CreateGarden} />
         </Router>
+        {/* try adding in modals here. */}
+        <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
+        <LoginDialog open={loginOpen} handleClose={handleLoginClose} />
       </CssBaseline>
     </ApolloProvider>
   );
