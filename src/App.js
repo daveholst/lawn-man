@@ -14,7 +14,7 @@ import { setContext } from '@apollo/client/link/context';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import Auth from './utils/authUtils';
-import CreateGarden from './components/CreateGarden';
+import CreateProperty from './components/CreateProperty';
 import SignUpDialog from './components/SignUpDialog';
 import LoginDialog from './components/LoginDialog';
 import NavBar from './components/NavBar';
@@ -90,7 +90,7 @@ const App = () => {
             }
           />
           <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/create-garden" component={CreateGarden} />
+          <Route exact path="/create-property" component={CreateProperty} />
         </Router>
         {/* try adding in modals here. */}
         <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />

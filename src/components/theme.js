@@ -6,8 +6,12 @@ const theme = createTheme({
       main: '#3C887E',
     },
     secondary: {
-      main: '#475657',
+      main: '#91785D',
     },
+    background: {
+      default: 'rgba(187,225,195,0.3)',
+    },
+    divider: '8b5d33',
   },
   typography: {
     fontFamily: 'Nunito',
