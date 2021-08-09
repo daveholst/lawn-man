@@ -44,6 +44,8 @@ const CreateProperty = () => {
     propertyName: '',
     address: '',
     juiceBoxId: '',
+    openSprinklerAddress: '',
+    openSprinklerKey: '',
     climate: '',
   });
   // TODO add mutation
@@ -98,6 +100,22 @@ const CreateProperty = () => {
           className={classes.field}
           name="juiceBoxId"
           label="Juice Box ID"
+          variant="outlined"
+          fullWidth
+          onChange={handleInputChange}
+        />
+        <TextField
+          className={classes.field}
+          name="openSprinklerAddress"
+          label="Open Sprinkler Address"
+          variant="outlined"
+          fullWidth
+          onChange={handleInputChange}
+        />
+        <TextField
+          className={classes.field}
+          name="openSprinklerKey"
+          label="Open Sprinkler API Key"
           variant="outlined"
           fullWidth
           onChange={handleInputChange}
