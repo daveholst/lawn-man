@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
   },
   setupPropertyButton: {
     margin: '.5rem auto',
