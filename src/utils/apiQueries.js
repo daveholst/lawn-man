@@ -7,6 +7,15 @@ export const GET_ME = gql`
       firstName
       lastName
       email
+      properties {
+        _id
+        propertyName
+        address
+        juiceBoxId
+        openSprinklerAddress
+        openSprinklerKey
+        climate
+      }
     }
   }
 `;

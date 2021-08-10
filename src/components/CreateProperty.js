@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '1rem',
   },
+  h2: {
+    marginBottom: '6px',
+  },
   field: {
     margin: '.5rem auto',
   },
@@ -82,8 +85,9 @@ const CreateProperty = () => {
   const classes = useStyles();
   return (
     <Container maxWidth="sm" className={classes.root}>
-      <Typography variant="h2">Create a Property</Typography>
-      <br />
+      <Typography variant="h2" className={classes.h2}>
+        Create a Property
+      </Typography>
       <Divider />
       <br />
       <form className={classes.form}>
