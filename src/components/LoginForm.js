@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
@@ -28,16 +27,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUpForm = ({ handleClose }) => {
+const LoginForm = ({ handleClose }) => {
   // form state managment
   const [userFormData, setUserFormData] = useState({
     email: '',
     password: '',
   });
-  // use History hook
-  const history = useHistory();
 
-  // mutation for create user
+  // mutation for login user
   const [loginUser, { _loginUserError, _loginUserData }] =
     useMutation(LOGIN_USER);
 
@@ -49,7 +46,6 @@ const SignUpForm = ({ handleClose }) => {
   const handleSubmit = async (e) => {
     // TODO: add some form validation? check material-UI docs.
     e.preventDefault();
-    console.log(userFormData);
     handleClose();
     // add user to db through api
     try {
@@ -59,14 +55,10 @@ const SignUpForm = ({ handleClose }) => {
       if (!data) {
         throw new Error('something went wrong!');
       }
-      console.log(data);
       const { token, user } = data.login;
-      // TODO apply login
-      console.log(token, user);
       // login and save token
       Auth.login(token);
       // redirect to dashboard
-      // history.push('/dashboard/');
     } catch (err) {
       console.error(err);
       // TODO alert front end on failure
@@ -74,7 +66,7 @@ const SignUpForm = ({ handleClose }) => {
     }
   };
 
-  SignUpForm.propTypes = {
+  LoginForm.propTypes = {
     handleClose: PropTypes.func,
   };
   const classes = useStyles();
@@ -108,4 +100,4 @@ const SignUpForm = ({ handleClose }) => {
   );
 };
 
-export default SignUpForm;
+export default LoginForm;

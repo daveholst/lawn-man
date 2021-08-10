@@ -10,6 +10,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
+import Auth from '../utils/authUtils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +41,12 @@ const NavBar = ({ loginOnClick }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    handleClose();
+    Auth.logout();
+  };
+
   return (
     <>
       <AppBar className={classes.appbar} position="sticky" elevation={0}>
@@ -67,7 +74,7 @@ const NavBar = ({ loginOnClick }) => {
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
