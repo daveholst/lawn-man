@@ -26,6 +26,14 @@ const theme = createTheme({
       fontWeight: 700,
       fontSize: '2rem',
     },
+    h3: {
+      fontFamily: 'Open Sans',
+      fontSize: '2.5rem',
+      fontWeight: 600,
+    },
+    h4: {
+      fontSize: '1rem',
+    },
   },
 });
 

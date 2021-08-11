@@ -2,24 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Container } from '@material-ui/core';
+import { Box, Container, Typography } from '@material-ui/core';
 
 const Property = ({ propertyName, address, juiceBoxId, climate, zones }) => {
   const useStyles = makeStyles(() => ({
     root: {},
-    propertyInfo: {
-      display: 'flex',
+    property: {
+      padding: '0px',
+      margin: '15px 0 0 0',
     },
+    // propertyInfo: {
+    // padding: '10px 0px',
+    // marginTop: '1/0px',
+    // height: '80px',
+    // display: 'fl/ex',
+    // flexWrap: 'wrap',
+    // backgroundImage: `url(${`${process.env.PUBLIC_URL}./assets/garden-banner.jpg`})`,
+    // backgroundRepeat: 'no-repeat',
+    // backgroundPosition: '50% 0',
+    // backgroundSize: 'cover',
+    // borderRadius: '6px',
+    // },
   }));
   const classes = useStyles();
   console.log(propertyName);
   return (
-    <Container>
-      <h3>{propertyName}</h3>
+    <Container className={classes.property}>
       <Box className={classes.propertyInfo}>
-        <h5>{address}</h5>
-        <h5>{juiceBoxId}</h5>
-        <h5>{climate}</h5>
+        <Typography variant="h3">{propertyName}</Typography>
+        <Typography variant="h4">
+          {address} || {juiceBoxId} || {climate}
+        </Typography>
       </Box>
       <Box display="flex">ZONES IN ERE</Box>
     </Container>
