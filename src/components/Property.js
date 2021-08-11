@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Container, Typography } from '@material-ui/core';
+import ZoneCard from './ZoneCard';
 
 const Property = ({ propertyName, address, juiceBoxId, climate, zones }) => {
   const useStyles = makeStyles(() => ({
@@ -34,7 +35,17 @@ const Property = ({ propertyName, address, juiceBoxId, climate, zones }) => {
           {address} || {juiceBoxId} || {climate}
         </Typography>
       </Box>
-      <Box display="flex">ZONES IN ERE</Box>
+      <Box display="flex">
+        {zones.map((zone) => (
+          <ZoneCard
+            stationNumber={zone.stationNumber}
+            stationName={zone.stationName}
+            type={zone.type}
+            area={zone.area}
+            key={zone._id}
+          />
+        ))}
+      </Box>
     </Container>
   );
 };

@@ -15,6 +15,13 @@ export const GET_ME = gql`
         openSprinklerAddress
         openSprinklerKey
         climate
+        zones {
+          _id
+          stationNumber
+          stationName
+          type
+          area
+        }
       }
     }
   }
