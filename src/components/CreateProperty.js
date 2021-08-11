@@ -76,20 +76,14 @@ const CreateProperty = () => {
         variables: { ...propertyFormData },
       });
       const stations = await stationNames(propertyFormData);
-      console.log(stations);
-      console.log('obj shape?: ', {
-        propertyName: propertyFormData.propertyName,
-        stations,
-      });
       const cZres = await createZones({
         variables: {
           propertyName: propertyFormData.propertyName,
           addZonesInput: stations,
         },
       });
-      console.log(cZres.data.addZones);
 
-      // history.push('/dashboard');
+      history.push('/dashboard');
       if (!data) {
         throw new Error('something went wrong!');
       }
