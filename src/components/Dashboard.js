@@ -15,30 +15,29 @@ import {
 import { GET_ME } from '../utils/apiQueries';
 import Property from './Property';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: '1rem',
-  },
-  h2: {
-    marginBottom: '6px',
-  },
-  warningBox: {
-    height: '80vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-  },
-  setupPropertyButton: {
-    margin: '.5rem auto',
-    height: '60px',
-    fontSize: '1.5rem',
-    fontWeight: '400',
-  },
-}));
-
 const Dashboard = () => {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      marginTop: '1rem',
+    },
+    h2: {
+      marginBottom: '6px',
+    },
+    warningBox: {
+      height: '80vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+    },
+    setupPropertyButton: {
+      margin: '.5rem auto',
+      height: '60px',
+      fontSize: '1.5rem',
+      fontWeight: '400',
+    },
+  }));
   const classes = useStyles();
   const { loading, error: userErrorRes, data: userDataRes } = useQuery(GET_ME);
   const userData = userDataRes?.me;
@@ -51,7 +50,7 @@ const Dashboard = () => {
     return <h2>LOADING...</h2>;
   }
   console.log(userData);
-  if (userData.properties.length === 0)
+  if (userData.properties.length === 0) {
     return (
       <Container maxWidth="md" className={classes.root}>
         <Typography className={classes.h2} variant="h2">
@@ -76,13 +75,23 @@ const Dashboard = () => {
         </Box>
       </Container>
     );
+  }
   return (
     <Container maxWidth="md" className={classes.root}>
       <Typography className={classes.h2} variant="h2">
         {userData.firstName}'s Dashboard
       </Typography>
       <Divider />
-      {userData.properties.map((property) => Property(property))}
+      {userData.properties.map((propertyData) => (
+        <Property
+          propertyName={propertyData.propertyName}
+          address={propertyData.address}
+          juiceBoxId={propertyData.juiceBoxId}
+          climate={propertyData.climate}
+          zones={propertyData.zones}
+          key={propertyData._id}
+        />
+      ))}
     </Container>
   );
 };
