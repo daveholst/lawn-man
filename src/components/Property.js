@@ -7,12 +7,16 @@ import { Box, Container } from '@material-ui/core';
 const Property = ({ propertyName, address, juiceBoxId, climate, zones }) => {
   const useStyles = makeStyles(() => ({
     root: {},
+    propertyInfo: {
+      display: 'flex',
+    },
   }));
   const classes = useStyles();
+  console.log(propertyName);
   return (
     <Container>
       <h3>{propertyName}</h3>
-      <Box display="flex">
+      <Box className={classes.propertyInfo}>
         <h5>{address}</h5>
         <h5>{juiceBoxId}</h5>
         <h5>{climate}</h5>
