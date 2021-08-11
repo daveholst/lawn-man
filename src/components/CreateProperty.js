@@ -16,6 +16,7 @@ import {
   Divider,
 } from '@material-ui/core';
 import { ADD_PROPERTY } from '../utils/apiMutations';
+import { stationNames } from '../utils/openSprinkler';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,12 +68,14 @@ const CreateProperty = () => {
     // TODO: add some form validation? check material-UI docs.
     e.preventDefault();
     console.log(propertyFormData);
-    history.push('/dashboard');
     try {
       // TODO Send data to DB
       const { data } = await createProperty({
         variables: { ...propertyFormData },
       });
+      const stations = await stationNames(propertyFormData);
+      console.log(stations);
+      history.push('/dashboard');
       if (!data) {
         throw new Error('something went wrong!');
       }
