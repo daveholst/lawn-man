@@ -13,40 +13,39 @@ import LoginDialog from './LoginDialog';
 // import './LandingPage.css';
 import NavBar from './NavBar';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    minHeight: '100vh',
-    marginTop: '-48px',
-    backgroundImage: `url(${`${process.env.PUBLIC_URL}./assets/grass-bg.jpg`})`,
-    backgroundRepeat: 'no-repate',
-    backgroundSize: 'cover',
-  },
-
-  welcome: {
-    maxWidth: '600px',
-    display: 'flex',
-    flexDirection: 'column',
-    height: 'calc(100vh - 48px)',
-    margin: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  welcomeBox: {
-    background: 'rgba(255,255,255,.7)',
-    padding: '1rem',
-    borderRadius: '6px',
-  },
-  buttonsWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    // justifyContent: 'space-evenly',
-  },
-  buttons: {
-    paddingRight: '1rem',
-  },
-}));
-
 const LandingPage = ({ handleLoginOpen, handleSignUpOpen }) => {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      minHeight: '100vh',
+      marginTop: '-48px',
+      backgroundImage: `url(${`${process.env.PUBLIC_URL}./assets/grass-bg.jpg`})`,
+      backgroundRepeat: 'no-repate',
+      backgroundSize: 'cover',
+    },
+
+    welcome: {
+      maxWidth: '600px',
+      display: 'flex',
+      flexDirection: 'column',
+      height: 'calc(100vh - 48px)',
+      margin: 'auto',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    welcomeBox: {
+      background: 'rgba(255,255,255,.7)',
+      padding: '1rem',
+      borderRadius: '6px',
+    },
+    buttonsWrapper: {
+      display: 'flex',
+      flexDirection: 'row',
+      // justifyContent: 'space-evenly',
+    },
+    buttons: {
+      paddingRight: '1rem',
+    },
+  }));
   const classes = useStyles();
   // // declare a new state variable for modal open
   // const [signUpOpen, setSignUpOpen] = useState(false);

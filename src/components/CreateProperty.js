@@ -18,33 +18,32 @@ import {
 import { ADD_PROPERTY, ADD_ZONES } from '../utils/apiMutations';
 import { stationNames } from '../utils/openSprinkler';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: '1rem',
-  },
-  h2: {
-    marginBottom: '6px',
-  },
-  field: {
-    margin: '.5rem auto',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  label: {
-    marginLeft: '15px',
-    marginTop: '2px',
-  },
-  button: {
-    margin: '.5rem auto',
-    height: '60px',
-    fontSize: '1.5rem',
-    fontWeight: '400',
-  },
-}));
-
 const CreateProperty = () => {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      marginTop: '1rem',
+    },
+    h2: {
+      marginBottom: '6px',
+    },
+    field: {
+      margin: '.5rem auto',
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    label: {
+      marginLeft: '15px',
+      marginTop: '2px',
+    },
+    button: {
+      margin: '.5rem auto',
+      height: '60px',
+      fontSize: '1.5rem',
+      fontWeight: '400',
+    },
+  }));
   const history = useHistory();
 
   const [createProperty, { _createPropertyError, _createPropertyData }] =

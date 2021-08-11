@@ -12,25 +12,24 @@ import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import Auth from '../utils/authUtils';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  appbar: {
-    opacity: 0.8,
-    fontFamily: 'Nunito ',
-  },
-
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    fontWeight: 600,
-  },
-}));
-
 const NavBar = ({ loginOnClick }) => {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    appbar: {
+      opacity: 0.8,
+      fontFamily: 'Nunito ',
+    },
+
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+      fontWeight: 600,
+    },
+  }));
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
