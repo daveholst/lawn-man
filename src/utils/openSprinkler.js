@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const stationNames = async ({ openSprinklerAddress, openSprinklerKey }) => {
-  const res = axios.get(`${openSprinklerAddress}jn`, {
+  const res = await axios.get(`${openSprinklerAddress}jn`, {
     params: {
       pw: openSprinklerKey,
     },
@@ -10,7 +10,7 @@ const stationNames = async ({ openSprinklerAddress, openSprinklerKey }) => {
   //
   const zones = res.data.snames.map((stnName, i) => ({
     stationName: stnName,
-    stationNumber: i + 1,
+    stationNumber: (i + 1).toString(),
     type: '',
     area: '',
   }));

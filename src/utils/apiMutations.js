@@ -56,6 +56,24 @@ export const ADD_PROPERTY = gql`
   }
 `;
 
+export const ADD_ZONES = gql`
+  mutation AddZones(
+    $propertyName: String!
+    $addZonesInput: [CreateZonePayload]
+  ) {
+    addZones(propertyName: $propertyName, input: $addZonesInput) {
+      token
+      user {
+        properties {
+          zones {
+            stationName
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
