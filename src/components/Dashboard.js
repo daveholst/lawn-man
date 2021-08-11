@@ -13,6 +13,7 @@ import {
   Link,
 } from '@material-ui/core';
 import { GET_ME } from '../utils/apiQueries';
+import Property from './Property';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,7 +78,11 @@ const Dashboard = () => {
     );
   return (
     <Container maxWidth="md" className={classes.root}>
-      <Typography variant="h2">{userData.firstName}'s Dashboard</Typography>
+      <Typography className={classes.h2} variant="h2">
+        {userData.firstName}'s Dashboard
+      </Typography>
+      <Divider />
+      {userData.properties.map((property) => Property(property))}
     </Container>
   );
 };

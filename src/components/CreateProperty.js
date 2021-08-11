@@ -15,39 +15,41 @@ import {
   Link,
   Divider,
 } from '@material-ui/core';
-import { ADD_PROPERTY } from '../utils/apiMutations';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: '1rem',
-  },
-  h2: {
-    marginBottom: '6px',
-  },
-  field: {
-    margin: '.5rem auto',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  label: {
-    marginLeft: '15px',
-    marginTop: '2px',
-  },
-  button: {
-    margin: '.5rem auto',
-    height: '60px',
-    fontSize: '1.5rem',
-    fontWeight: '400',
-  },
-}));
+import { ADD_PROPERTY, ADD_ZONES } from '../utils/apiMutations';
+import { stationNames } from '../utils/openSprinkler';
 
 const CreateProperty = () => {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      marginTop: '1rem',
+    },
+    h2: {
+      marginBottom: '6px',
+    },
+    field: {
+      margin: '.5rem auto',
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    label: {
+      marginLeft: '15px',
+      marginTop: '2px',
+    },
+    button: {
+      margin: '.5rem auto',
+      height: '60px',
+      fontSize: '1.5rem',
+      fontWeight: '400',
+    },
+  }));
   const history = useHistory();
 
   const [createProperty, { _createPropertyError, _createPropertyData }] =
     useMutation(ADD_PROPERTY);
+  const [createZones, { _createZonesError, _createZonesData }] =
+    useMutation(ADD_ZONES);
 
   const [propertyFormData, setPropertyFormData] = useState({
     propertyName: '',
@@ -67,12 +69,20 @@ const CreateProperty = () => {
     // TODO: add some form validation? check material-UI docs.
     e.preventDefault();
     console.log(propertyFormData);
-    history.push('/dashboard');
     try {
       // TODO Send data to DB
       const { data } = await createProperty({
         variables: { ...propertyFormData },
       });
+      const stations = await stationNames(propertyFormData);
+      const cZres = await createZones({
+        variables: {
+          propertyName: propertyFormData.propertyName,
+          addZonesInput: stations,
+        },
+      });
+
+      history.push('/dashboard');
       if (!data) {
         throw new Error('something went wrong!');
       }
