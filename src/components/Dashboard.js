@@ -13,6 +13,7 @@ import {
   Link,
 } from '@material-ui/core';
 import { GET_ME } from '../utils/apiQueries';
+import Property from './Property';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,6 +82,7 @@ const Dashboard = () => {
         {userData.firstName}'s Dashboard
       </Typography>
       <Divider />
+      {userData.properties.map((property) => Property(property))}
     </Container>
   );
 };

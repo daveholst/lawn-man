@@ -9,25 +9,24 @@ import Button from '@material-ui/core/Button';
 import Auth from '../utils/authUtils';
 import { ADD_USER } from '../utils/apiMutations';
 
-// styling
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing(2),
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '300px',
-    },
-    '& .MuiButtonBase-root': {
-      margin: theme.spacing(2),
-    },
-  },
-}));
-
 const SignUpForm = ({ handleClose }) => {
+  // styling
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: theme.spacing(2),
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '300px',
+      },
+      '& .MuiButtonBase-root': {
+        margin: theme.spacing(2),
+      },
+    },
+  }));
   // form state managment
   const [userFormData, setUserFormData] = useState({
     firstName: '',
