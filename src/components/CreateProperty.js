@@ -15,7 +15,7 @@ import {
   Link,
   Divider,
 } from '@material-ui/core';
-import { ADD_PROPERTY } from '../utils/apiMutations';
+import { ADD_PROPERTY, ADD_ZONES } from '../utils/apiMutations';
 import { stationNames } from '../utils/openSprinkler';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +49,8 @@ const CreateProperty = () => {
 
   const [createProperty, { _createPropertyError, _createPropertyData }] =
     useMutation(ADD_PROPERTY);
+  const [createZones, { _createZonesError, _createZonesData }] =
+    useMutation(ADD_ZONES);
 
   const [propertyFormData, setPropertyFormData] = useState({
     propertyName: '',
@@ -75,7 +77,19 @@ const CreateProperty = () => {
       });
       const stations = await stationNames(propertyFormData);
       console.log(stations);
-      history.push('/dashboard');
+      console.log('obj shape?: ', {
+        propertyName: propertyFormData.propertyName,
+        stations,
+      });
+      const cZres = await createZones({
+        variables: {
+          propertyName: propertyFormData.propertyName,
+          addZonesInput: stations,
+        },
+      });
+      console.log(cZres.data.addZones);
+
+      // history.push('/dashboard');
       if (!data) {
         throw new Error('something went wrong!');
       }
