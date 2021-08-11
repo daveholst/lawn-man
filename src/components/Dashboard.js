@@ -77,7 +77,10 @@ const Dashboard = () => {
     );
   return (
     <Container maxWidth="md" className={classes.root}>
-      <Typography variant="h2">{userData.firstName}'s Dashboard</Typography>
+      <Typography className={classes.h2} variant="h2">
+        {userData.firstName}'s Dashboard
+      </Typography>
+      <Divider />
     </Container>
   );
 };
