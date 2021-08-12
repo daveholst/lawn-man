@@ -48,11 +48,13 @@ const Property = ({ propertyName, address, juiceBoxId, climate, zones }) => {
       <Box className={classes.zoneContainer}>
         {zones.map((zone) => (
           <ZoneCard
+            propertyName={propertyName}
             stationNumber={zone.stationNumber}
             stationName={zone.stationName}
             type={zone.type}
             area={zone.area}
             key={zone._id}
+            zoneId={zone._id}
           />
         ))}
       </Box>

@@ -15,10 +15,21 @@ import {
   InputLabel,
   Container,
 } from '@material-ui/core';
+import { useMutation } from '@apollo/client';
+import { EDIT_ZONE } from '../utils/apiMutations';
 
-const EditZoneForm = ({ zoneId, area, stationNumber, stationName, type }) => {
+const EditZoneForm = ({
+  zoneId,
+  area,
+  stationNumber,
+  stationName,
+  type,
+  propertyName,
+}) => {
+  const [updateZone, { _updateZoneError, _updateZoneData }] =
+    useMutation(EDIT_ZONE);
+
   const [zoneFormData, setZoneFormData] = useState({
-    _id: zoneId,
     stationNumber,
     stationName,
     area,
@@ -28,6 +39,40 @@ const EditZoneForm = ({ zoneId, area, stationNumber, stationName, type }) => {
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
     setZoneFormData({ ...zoneFormData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    // TODO: add some form validation? check material-UI docs.
+    e.preventDefault();
+    console.log(zoneFormData);
+    console.log({
+      zoneId,
+      editZonesInput: zoneFormData,
+    });
+    // add user to db through api
+    try {
+      const { data } = await updateZone({
+        variables: {
+          propertyName,
+          zoneId,
+          editZonesInput: zoneFormData,
+        },
+      });
+      if (!data) {
+        throw new Error('something went wrong!');
+      }
+
+      // const { token, user } = data.addUser;
+      // // TODO apply login
+      // console.log(token, user);
+      // // login and save token
+      // Auth.login(token);
+      // // redirect to dashboard
+    } catch (err) {
+      console.error(err);
+      // TODO alert front end on failure
+      // setShowAlert(true);
+    }
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -88,11 +133,11 @@ const EditZoneForm = ({ zoneId, area, stationNumber, stationName, type }) => {
             fullWidth
             variant="outlined"
             native
-            label="Climate Zone"
+            label="Garden Type"
             defaultValue={zoneFormData.type}
             onChange={handleInputChange}
             inputProps={{
-              name: 'climate',
+              name: 'type',
               id: 'outlined-age-native-simple',
             }}
           >
@@ -116,7 +161,7 @@ const EditZoneForm = ({ zoneId, area, stationNumber, stationName, type }) => {
         <Button
           className={classes.button}
           type="submit"
-          // onClick={handleSubmit}
+          onClick={handleSubmit}
           variant="contained"
           color="secondary"
           disableElevation
@@ -140,6 +185,7 @@ EditZoneForm.propTypes = {
   stationNumber: PropTypes.string,
   stationName: PropTypes.string,
   type: PropTypes.string,
+  propertyName: PropTypes.string,
 };
 
 export default EditZoneForm;
