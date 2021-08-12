@@ -18,6 +18,7 @@ import CreateProperty from './components/CreateProperty';
 import SignUpDialog from './components/SignUpDialog';
 import LoginDialog from './components/LoginDialog';
 import NavBar from './components/NavBar';
+import EditZoneDialog from './components/EditZoneDialog';
 // build graphQl endpoint
 const httpLink = createHttpLink({
   uri:
@@ -57,6 +58,7 @@ const App = () => {
   // declare a new state variable for modal open
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [editZoneOpen, seteditZoneOpen] = useState(false);
   // function to handle signup modal open
   const handleSignUpOpen = () => {
     setSignUpOpen(true);
@@ -69,6 +71,13 @@ const App = () => {
     setLoginOpen(true);
   };
   const handleLoginClose = () => {
+    setLoginOpen(false);
+  };
+  // function to handle editZone modal open
+  const handleEditZoneOpen = () => {
+    setLoginOpen(true);
+  };
+  const handleEditZoneClose = () => {
     setLoginOpen(false);
   };
 
@@ -92,12 +101,15 @@ const App = () => {
               )
             }
           />
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/dashboard" component={Dashboard}>
+            <Dashboard handleEditZoneOpen={handleEditZoneOpen} />
+          </Route>
           <Route exact path="/create-property" component={CreateProperty} />
         </Router>
         {/* try adding in modals here. */}
         <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
         <LoginDialog open={loginOpen} handleClose={handleLoginClose} />
+        <EditZoneDialog open={editZoneOpen} handleClose={handleEditZoneClose} />
       </CssBaseline>
     </ApolloProvider>
   );
