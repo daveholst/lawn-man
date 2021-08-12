@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,87 +16,103 @@ import {
   Container,
 } from '@material-ui/core';
 
-const EditZoneForm = () => {
+const EditZoneForm = ({ zoneId, area, stationNumber, stationName, type }) => {
+  const [zoneFormData, setZoneFormData] = useState({
+    _id: zoneId,
+    stationNumber,
+    stationName,
+    area,
+    type,
+  });
+
+  const handleInputChange = async (e) => {
+    const { name, value } = e.target;
+    setZoneFormData({ ...zoneFormData, [name]: value });
+  };
+
   const useStyles = makeStyles((theme) => ({
-    root: {},
+    root: {
+      marginTop: '1rem',
+      padding: '0',
+    },
+    field: {
+      marginTop: '.7rem',
+      width: '100%',
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    label: {
+      marginLeft: '15px',
+      marginTop: '-6px',
+    },
+    button: {
+      margin: '.5rem 0 0 0',
+      height: '60px',
+      fontSize: '1.5rem',
+      fontWeight: '400',
+    },
   }));
   const classes = useStyles();
   return (
-    <Container>
+    <Container className={classes.root}>
       <form className={classes.editForm}>
         <TextField
           className={classes.field}
-          name="propertyName"
-          label="Property Name"
+          name="StationNumber"
+          defaultValue={zoneFormData.stationNumber}
+          disabled="true"
+          label="Station Number"
           variant="outlined"
           fullWidth
-          // onChange={handleInputChange}
+          onChange={handleInputChange}
         />
         <TextField
           className={classes.field}
-          name="address"
-          label="Property Address"
+          name="stationName"
+          label="Station Name"
+          defaultValue={zoneFormData.stationName}
           variant="outlined"
           fullWidth
-          // onChange={handleInputChange}
+          onChange={handleInputChange}
         />
-        <TextField
-          className={classes.field}
-          name="juiceBoxId"
-          label="Juice Box ID"
-          variant="outlined"
-          fullWidth
-          // onChange={handleInputChange}
-        />
-        <TextField
-          className={classes.field}
-          name="openSprinklerAddress"
-          label="Open Sprinkler Address"
-          variant="outlined"
-          fullWidth
-          // onChange={handleInputChange}
-        />
-        <TextField
-          className={classes.field}
-          name="openSprinklerKey"
-          label="Open Sprinkler API Key"
-          variant="outlined"
-          fullWidth
-          // onChange={handleInputChange}
-        />
-        {/* <InputLabel htmlFor="outlined-age-native-simple">Age</InputLabel> */}
-        <FormControl>
+        <FormControl className={classes.field}>
           <InputLabel
             className={classes.label}
             htmlFor="outlined-age-native-simple"
           >
-            Climate Zone
+            Garden Type
           </InputLabel>
           <Select
-            className={classes.field}
             fullWidth
             variant="outlined"
             native
             label="Climate Zone"
-            // onChange={handleInputChange}
+            defaultValue={zoneFormData.type}
+            onChange={handleInputChange}
             inputProps={{
               name: 'climate',
               id: 'outlined-age-native-simple',
             }}
           >
             <option aria-label="None" value="" />
-            <option value="Tropical">Tropical</option>
-            <option value="Mild Tropical">Mild Tropical</option>
-            <option value="Semi-arid">Semi-arid</option>
-            <option value="Arid">Arid</option>
-            <option value="Mild Tropical">Mild Tropical</option>
-            <option value="Tropical">Tropical</option>
+            <option value="Tropical">Master Valve</option>
+            <option value="Tropical">Lawn</option>
+            <option value="Mild Tropical">Vegetables</option>
+            <option value="Semi-arid">Fruit Trees</option>
+            <option value="Arid">Mixed</option>
           </Select>
         </FormControl>
-        <Link href="https://www.gardenexpress.com.au/australian-climate-guide/">
-          If you are unsure of your climate zone, click here for further
-          information.
-        </Link>
+        <TextField
+          className={classes.field}
+          name="area"
+          label="Station Area"
+          defaultValue={zoneFormData.area}
+          variant="outlined"
+          fullWidth
+          onChange={handleInputChange}
+        />
         <Button
           className={classes.button}
           type="submit"
@@ -107,7 +123,7 @@ const EditZoneForm = () => {
           size="large"
           fullWidth
         >
-          Save Property
+          Update Zone
         </Button>
 
         {/* <FormHelperText id="my-helper-text">
@@ -119,7 +135,11 @@ const EditZoneForm = () => {
 };
 
 EditZoneForm.propTypes = {
-  // loginOnClick: PropTypes.func,
+  zoneId: PropTypes.string,
+  area: PropTypes.string,
+  stationNumber: PropTypes.string,
+  stationName: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default EditZoneForm;

@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import EditZoneForm from './EditZoneForm';
 
-const ZoneCard = ({ stationNumber, stationName, type, area }) => {
+const ZoneCard = ({ stationNumber, stationName, type, area, key }) => {
   const [editFormVisible, setEditFormVisible] = useState(false);
 
   const useStyles = makeStyles(() => ({
@@ -55,7 +55,6 @@ const ZoneCard = ({ stationNumber, stationName, type, area }) => {
     } else {
       setEditFormVisible(true);
     }
-    console.log(editFormVisible);
   };
 
   return (
@@ -74,7 +73,7 @@ const ZoneCard = ({ stationNumber, stationName, type, area }) => {
                 <b>{stationName}</b>
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Zone type: {type}
+                Garden Type: {type}
               </Typography>
               <Typography variant="body2" color="textSecondary">
                 Area: {area} m2
@@ -98,7 +97,15 @@ const ZoneCard = ({ stationNumber, stationName, type, area }) => {
           </Grid> */}
         </Grid>
       </Grid>
-      {editFormVisible ? <EditZoneForm /> : null}
+      {editFormVisible ? (
+        <EditZoneForm
+          zoneId={key}
+          area={area}
+          stationNumber={stationNumber}
+          stationName={stationName}
+          type={type}
+        />
+      ) : null}
     </Paper>
   );
 };
@@ -108,6 +115,7 @@ ZoneCard.propTypes = {
   stationName: PropTypes.string,
   type: PropTypes.string,
   area: PropTypes.string,
+  key: PropTypes.string,
 };
 
 export default ZoneCard;
