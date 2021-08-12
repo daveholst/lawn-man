@@ -24,6 +24,15 @@ const Property = ({ propertyName, address, juiceBoxId, climate, zones }) => {
     // backgroundSize: 'cover',
     // borderRadius: '6px',
     // },
+    h4: {
+      marginLeft: '10px',
+      marginTop: '10px',
+      fontSize: '1.1rem',
+    },
+    zoneContainer: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
   }));
   const classes = useStyles();
   console.log(propertyName);
@@ -31,11 +40,12 @@ const Property = ({ propertyName, address, juiceBoxId, climate, zones }) => {
     <Container className={classes.property}>
       <Box className={classes.propertyInfo}>
         <Typography variant="h3">{propertyName}</Typography>
-        <Typography variant="h4">
-          {address} || {juiceBoxId} || {climate}
+        <Typography variant="h4" className={classes.h4}>
+          <b>address:</b> {address} || <b>juice box:</b> {juiceBoxId} ||{' '}
+          <b>climate:</b> {climate}
         </Typography>
       </Box>
-      <Box display="flex">
+      <Box className={classes.zoneContainer}>
         {zones.map((zone) => (
           <ZoneCard
             stationNumber={zone.stationNumber}
