@@ -81,7 +81,7 @@ const CreateProperty = () => {
           addZonesInput: stations,
         },
       });
-
+      // !! seems to be jumping the gun here?
       history.push('/dashboard');
       if (!data) {
         throw new Error('something went wrong!');

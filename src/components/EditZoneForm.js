@@ -58,6 +58,7 @@ const EditZoneForm = ({
           editZonesInput: zoneFormData,
         },
       });
+      window.location.reload();
       if (!data) {
         throw new Error('something went wrong!');
       }
@@ -107,7 +108,7 @@ const EditZoneForm = ({
           className={classes.field}
           name="StationNumber"
           defaultValue={zoneFormData.stationNumber}
-          disabled="true"
+          disabled
           label="Station Number"
           variant="outlined"
           fullWidth
@@ -142,17 +143,17 @@ const EditZoneForm = ({
             }}
           >
             <option aria-label="None" value="" />
-            <option value="Tropical">Master Valve</option>
-            <option value="Tropical">Lawn</option>
-            <option value="Mild Tropical">Vegetables</option>
-            <option value="Semi-arid">Fruit Trees</option>
-            <option value="Arid">Mixed</option>
+            <option value="Master Valve">Master Valve</option>
+            <option value="Lawn">Lawn</option>
+            <option value="Vegetables">Vegetables</option>
+            <option value="Fruit Trees">Fruit Trees</option>
+            <option value="Mixed">Mixed</option>
           </Select>
         </FormControl>
         <TextField
           className={classes.field}
           name="area"
-          label="Station Area"
+          label="Station Area m2"
           defaultValue={zoneFormData.area}
           variant="outlined"
           fullWidth
