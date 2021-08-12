@@ -1,17 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Typography, Grid, ButtonBase, Button } from '@material-ui/core';
+import {
+  Paper,
+  Typography,
+  Grid,
+  ButtonBase,
+  Button,
+  Link,
+  Select,
+  FormControl,
+  TextField,
+  InputLabel,
+  Container,
+} from '@material-ui/core';
+import EditZoneForm from './EditZoneForm';
 
-const ZoneCard = ({ stationNumber, stationName, type, area }) => {
+const ZoneCard = ({
+  stationNumber,
+  stationName,
+  type,
+  area,
+  zoneId,
+  propertyName,
+}) => {
+  const [editFormVisible, setEditFormVisible] = useState(false);
+
   const useStyles = makeStyles(() => ({
     root: {
       flexGrow: 1,
-      // flexWrap: 'wrap',
     },
     paper: {
-      // padding: theme.spacing(2),
       margin: 'auto',
       padding: '10px',
       marginTop: '15px',
@@ -21,8 +41,29 @@ const ZoneCard = ({ stationNumber, stationName, type, area }) => {
       width: 128,
       height: 128,
     },
+    editForm: {
+      marginTop: '1rem',
+    },
+    editFormHidden: {
+      display: 'none',
+    },
+    editFormVisible: {
+      display: 'none',
+    },
+    field: {
+      marginBottom: '.7rem',
+    },
   }));
   const classes = useStyles();
+
+  const editFormClickHandler = () => {
+    if (editFormVisible) {
+      setEditFormVisible(false);
+    } else {
+      setEditFormVisible(true);
+    }
+  };
+
   return (
     <Paper className={classes.paper} elevation={1}>
       <Grid container spacing={2}>
@@ -31,8 +72,6 @@ const ZoneCard = ({ stationNumber, stationName, type, area }) => {
             <Typography variant="h4">Station </Typography>
             <Typography variant="h2">{stationNumber}</Typography>
           </ButtonBase>
-          {/* <Button variant="contained">Default</Button>
-          <Button variant="contained">Default</Button> */}
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
@@ -41,7 +80,7 @@ const ZoneCard = ({ stationNumber, stationName, type, area }) => {
                 <b>{stationName}</b>
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Zone type: {type}
+                Garden Type: {type}
               </Typography>
               <Typography variant="body2" color="textSecondary">
                 Area: {area} m2
@@ -51,29 +90,13 @@ const ZoneCard = ({ stationNumber, stationName, type, area }) => {
               <Button size="small" variant="contained" color="primary">
                 FERTIGATE
               </Button>
-              <Button size="small" variant="contained">
+              <Button
+                size="small"
+                variant="contained"
+                onClick={editFormClickHandler}
+              >
                 EDIT
               </Button>
-              {/* <Button variant="contained" color="secondary">
-                Secondary
-              </Button> */}
-              {/* <Button variant="contained" disabled>
-                Disabled
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                href="#contained-buttons"
-              >
-                Link
-              </Button> */}
-
-              {/* <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                Remove
-              </Typography>
-              <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                Remove
-              </Typography> */}
             </Grid>
           </Grid>
           {/* <Grid item>
@@ -81,6 +104,16 @@ const ZoneCard = ({ stationNumber, stationName, type, area }) => {
           </Grid> */}
         </Grid>
       </Grid>
+      {editFormVisible ? (
+        <EditZoneForm
+          propertyName={propertyName}
+          zoneId={zoneId}
+          area={area}
+          stationNumber={stationNumber}
+          stationName={stationName}
+          type={type}
+        />
+      ) : null}
     </Paper>
   );
 };
@@ -90,6 +123,8 @@ ZoneCard.propTypes = {
   stationName: PropTypes.string,
   type: PropTypes.string,
   area: PropTypes.string,
+  zoneId: PropTypes.string,
+  propertyName: PropTypes.string,
 };
 
 export default ZoneCard;

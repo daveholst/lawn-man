@@ -92,7 +92,9 @@ const App = () => {
               )
             }
           />
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/dashboard">
+            <Dashboard />
+          </Route>
           <Route exact path="/create-property" component={CreateProperty} />
         </Router>
         {/* try adding in modals here. */}

@@ -90,6 +90,7 @@ const Dashboard = () => {
           climate={propertyData.climate}
           zones={propertyData.zones}
           key={propertyData._id}
+          zoneId={propertyData._id}
         />
       ))}
     </Container>
