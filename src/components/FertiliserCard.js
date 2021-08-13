@@ -33,8 +33,6 @@ const FertiliserCard = ({
   const useStyles = makeStyles(() => ({
     root: {
       flexGrow: 1,
-    },
-    paper: {
       margin: 'auto',
       padding: '10px',
       marginTop: '15px',
@@ -81,12 +79,10 @@ const FertiliserCard = ({
   };
 
   return (
-    <Paper className={classes.paper} elevation={1}>
+    <Paper className={classes.root} elevation={1}>
       <Grid container direction="row" spacing={2}>
         <Grid item className={classes.imgContainer}>
           <ButtonBase className={classes.image}>
-            {/* <Typography variant="h4">Station </Typography>
-            <Typography variant="h2">dsaffsdssdfsadffsad</Typography> */}
             <img
               className={classes.fertImage}
               src={`${process.env.PUBLIC_URL}./assets/fertiliser/${imageLink}`}

@@ -17,6 +17,7 @@ import {
 } from '@material-ui/core';
 import { ADD_PROPERTY, ADD_ZONES } from '../utils/apiMutations';
 import { stationNames } from '../utils/openSprinkler';
+import { GET_ME } from '../utils/apiQueries';
 
 const CreateProperty = () => {
   const useStyles = makeStyles((theme) => ({
@@ -47,9 +48,15 @@ const CreateProperty = () => {
   const history = useHistory();
 
   const [createProperty, { _createPropertyError, _createPropertyData }] =
-    useMutation(ADD_PROPERTY);
-  const [createZones, { _createZonesError, _createZonesData }] =
-    useMutation(ADD_ZONES);
+    useMutation(ADD_PROPERTY, {
+      refetchQueries: [{ query: GET_ME }],
+    });
+  const [createZones, { _createZonesError, _createZonesData }] = useMutation(
+    ADD_ZONES,
+    {
+      refetchQueries: [{ query: GET_ME }],
+    }
+  );
 
   const [propertyFormData, setPropertyFormData] = useState({
     propertyName: '',

@@ -16,6 +16,7 @@ import {
   Divider,
 } from '@material-ui/core';
 import { ADD_FERTILISER } from '../utils/apiMutations';
+import { GET_FERTILISERS } from '../utils/apiQueries';
 
 const CreateFert = () => {
   const useStyles = makeStyles((theme) => ({
@@ -46,7 +47,9 @@ const CreateFert = () => {
   const history = useHistory();
 
   const [createFertiliser, { _createFertiliserError, _createFertiliserData }] =
-    useMutation(ADD_FERTILISER);
+    useMutation(ADD_FERTILISER, {
+      refetchQueries: [{ query: GET_FERTILISERS }],
+    });
 
   const [fertiliserFormData, setFertiliserFormData] = useState({
     productBrand: '',
@@ -74,7 +77,7 @@ const CreateFert = () => {
         variables: { addFertiliserInput: fertiliserFormData },
       });
       console.log(fertiliser);
-      // history.push('/fertilsers');
+      history.push('/fertilisers');
       if (!fertiliser) {
         throw new Error('something went wrong!');
       }
