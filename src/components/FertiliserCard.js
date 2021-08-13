@@ -14,9 +14,20 @@ import {
   TextField,
   InputLabel,
   Container,
+  Divider,
 } from '@material-ui/core';
 
-const FertiliserCard = () => {
+const FertiliserCard = ({
+  _id,
+  productBrand,
+  productName,
+  type,
+  description,
+  applicationRate,
+  manufacturerLink,
+  bunningsLink,
+  imageLink,
+}) => {
   const [editFormVisible, setEditFormVisible] = useState(false);
 
   const useStyles = makeStyles(() => ({
@@ -30,8 +41,14 @@ const FertiliserCard = () => {
       maxWidth: '400px',
     },
     image: {
+      margin: 'auto',
       width: 150,
       height: 150,
+    },
+    imageContainer: {
+      // display: 'flex',
+      // alignItems: 'center',
+      // justifyContent: 'center',
     },
     editForm: {
       marginTop: '1rem',
@@ -49,6 +66,9 @@ const FertiliserCard = () => {
       maxWidth: '100%',
       maxHeight: '100%',
     },
+    button: {
+      // marginBottom: '15px',
+    },
   }));
   const classes = useStyles();
 
@@ -62,14 +82,14 @@ const FertiliserCard = () => {
 
   return (
     <Paper className={classes.paper} elevation={1}>
-      <Grid container spacing={2}>
-        <Grid item>
+      <Grid container direction="row" spacing={2}>
+        <Grid item className={classes.imgContainer}>
           <ButtonBase className={classes.image}>
             {/* <Typography variant="h4">Station </Typography>
             <Typography variant="h2">dsaffsdssdfsadffsad</Typography> */}
             <img
               className={classes.fertImage}
-              src={`${process.env.PUBLIC_URL}./assets/fertiliser/power-feed.png`}
+              src={`${process.env.PUBLIC_URL}./assets/fertiliser/${imageLink}`}
               alt=""
             />
           </ButtonBase>
@@ -78,26 +98,24 @@ const FertiliserCard = () => {
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant="subtitle1">
-                <b>dssadfsad</b>
+                <b>
+                  {productBrand} - {productName}
+                </b>
               </Typography>
+
               <Typography variant="body2" gutterBottom>
-                Garden Type:
+                Type: {type}
               </Typography>
+
               <Typography variant="body2" color="textSecondary">
-                Area:
+                Application Rate: {applicationRate}mL / m2
               </Typography>
             </Grid>
-            <Grid item container justifyContent="space-between" direction="row">
-              <Button size="small" variant="contained" color="primary">
-                FERTIGATE
-              </Button>
-              <Button
-                size="small"
-                variant="contained"
-                onClick={editFormClickHandler}
-              >
-                EDIT
-              </Button>
+            <Grid item xs>
+              <Divider />
+              <Typography variant="body2" color="textSecondary">
+                {description}
+              </Typography>
             </Grid>
           </Grid>
           {/* <Grid item>
@@ -105,10 +123,68 @@ const FertiliserCard = () => {
           </Grid> */}
         </Grid>
       </Grid>
+      <Grid container spacing={1} className={classes.buttonC}>
+        <Grid
+          item
+          xs
+          container
+          justifyContent="space-evenly"
+          direction="row"
+          spacing={0}
+        >
+          <Link href={manufacturerLink}>
+            <Button
+              size="small"
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+            >
+              INFO
+            </Button>
+          </Link>
+          <Link href={bunningsLink}>
+            <Button
+              size="small"
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+            >
+              BUY
+            </Button>
+          </Link>
+          <Button
+            size="small"
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          >
+            FERTIGATE
+          </Button>
+          <Button
+            size="small"
+            variant="contained"
+            disabled
+            className={classes.button}
+            // onClick={editFormClickHandler}
+          >
+            EDIT
+          </Button>
+        </Grid>
+      </Grid>
     </Paper>
   );
 };
 
-FertiliserCard.propTypes = {};
+FertiliserCard.propTypes = {
+  _id: PropTypes.string,
+  productBrand: PropTypes.string,
+  productName: PropTypes.string,
+  type: PropTypes.string,
+  description: PropTypes.string,
+  applicationRate: PropTypes.string,
+  manufacturerLink: PropTypes.string,
+  bunningsLink: PropTypes.string,
+  imageLink: PropTypes.string,
+};
 
 export default FertiliserCard;

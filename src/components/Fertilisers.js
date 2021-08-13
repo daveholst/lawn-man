@@ -31,6 +31,14 @@ const Fertilisers = () => {
     },
   }));
   const classes = useStyles();
+  if (loading) {
+    return (
+      <Container maxWidth="md" className={classes.root}>
+        <Typography variant="h2">Loading...</Typography>
+      </Container>
+    );
+  }
+
   return (
     <Container maxWidth="md" className={classes.root}>
       <Typography className={classes.h2} variant="h2">
@@ -38,7 +46,19 @@ const Fertilisers = () => {
       </Typography>
       <Divider />
       <Box>
-        <FertiliserCard />
+        {fertData.map((fert) => (
+          <FertiliserCard
+            _id={fert._id}
+            productBrand={fert.productBrand}
+            productName={fert.productName}
+            type={fert.type}
+            description={fert.description}
+            applicationRate={fert.applicationRate}
+            manufacturerLink={fert.manufacturerLink}
+            bunningsLink={fert.bunningsLink}
+            imageLink={fert.imageLink}
+          />
+        ))}
       </Box>
     </Container>
   );
