@@ -54,6 +54,7 @@ const LoginForm = ({ handleClose }) => {
       if (!data) {
         throw new Error('something went wrong!');
       }
+      console.log(data);
       const { token, user } = data.login;
       // login and save token
       Auth.login(token);
