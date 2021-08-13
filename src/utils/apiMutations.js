@@ -13,7 +13,6 @@ export const ADD_USER = gql`
       email: $email
       password: $password
     ) {
-      # !do i need this token??
       token
       user {
         firstName
@@ -70,6 +69,15 @@ export const ADD_ZONES = gql`
           }
         }
       }
+    }
+  }
+`;
+export const ADD_FERTILISER = gql`
+  mutation AddFertiliser($addFertiliserInput: CreateFertiliserPayload) {
+    addFertiliser(input: $addFertiliserInput) {
+      productBrand
+      productName
+      type
     }
   }
 `;

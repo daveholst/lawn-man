@@ -15,8 +15,7 @@ import {
   Link,
   Divider,
 } from '@material-ui/core';
-import { ADD_PROPERTY, ADD_ZONES } from '../utils/apiMutations';
-import { stationNames } from '../utils/openSprinkler';
+import { ADD_FERTILISER } from '../utils/apiMutations';
 
 const CreateFert = () => {
   const useStyles = makeStyles((theme) => ({
@@ -46,16 +45,15 @@ const CreateFert = () => {
   }));
   const history = useHistory();
 
-  const [createProperty, { _createPropertyError, _createPropertyData }] =
-    useMutation(ADD_PROPERTY);
-  const [createZones, { _createZonesError, _createZonesData }] =
-    useMutation(ADD_ZONES);
+  const [createFertiliser, { _createFertiliserError, _createFertiliserData }] =
+    useMutation(ADD_FERTILISER);
 
   const [fertiliserFormData, setFertiliserFormData] = useState({
     productBrand: '',
     productName: '',
     type: '',
     description: '',
+    applicationRate: '',
     manufacturerLink: '',
     bunningsLink: '',
     imageLink: '',
@@ -72,19 +70,12 @@ const CreateFert = () => {
     console.log(fertiliserFormData);
     try {
       // TODO Send data to DB
-      const { data } = await createProperty({
-        variables: { ...fertiliserFormData },
+      const fertiliser = await createFertiliser({
+        variables: { addFertiliserInput: fertiliserFormData },
       });
-      const stations = await stationNames(fertiliserFormData);
-      const cZres = await createZones({
-        variables: {
-          propertyName: fertiliserFormData.propertyName,
-          addZonesInput: stations,
-        },
-      });
-      // !! seems to be jumping the gun here?
-      history.push('/fertilsers');
-      if (!data) {
+      console.log(fertiliser);
+      // history.push('/fertilsers');
+      if (!fertiliser) {
         throw new Error('something went wrong!');
       }
     } catch (err) {
@@ -161,6 +152,14 @@ const CreateFert = () => {
           className={classes.field}
           name="manufacturerLink"
           label="Manufacturer Link"
+          variant="outlined"
+          fullWidth
+          onChange={handleInputChange}
+        />
+        <TextField
+          className={classes.field}
+          name="applicationRate"
+          label="Application rate (mL / m2)"
           variant="outlined"
           fullWidth
           onChange={handleInputChange}
