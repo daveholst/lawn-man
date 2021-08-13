@@ -12,18 +12,6 @@ const Property = ({ propertyName, address, juiceBoxId, climate, zones }) => {
       padding: '0px',
       margin: '15px 0 0 0',
     },
-    // propertyInfo: {
-    // padding: '10px 0px',
-    // marginTop: '1/0px',
-    // height: '80px',
-    // display: 'fl/ex',
-    // flexWrap: 'wrap',
-    // backgroundImage: `url(${`${process.env.PUBLIC_URL}./assets/garden-banner.jpg`})`,
-    // backgroundRepeat: 'no-repeat',
-    // backgroundPosition: '50% 0',
-    // backgroundSize: 'cover',
-    // borderRadius: '6px',
-    // },
     h4: {
       marginLeft: '10px',
       marginTop: '10px',

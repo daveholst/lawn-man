@@ -18,6 +18,8 @@ import CreateProperty from './components/CreateProperty';
 import SignUpDialog from './components/SignUpDialog';
 import LoginDialog from './components/LoginDialog';
 import NavBar from './components/NavBar';
+import Fertilisers from './components/Fertilisers';
+import CreateFert from './components/CreateFert';
 // build graphQl endpoint
 const httpLink = createHttpLink({
   uri:
@@ -96,6 +98,8 @@ const App = () => {
             <Dashboard />
           </Route>
           <Route exact path="/create-property" component={CreateProperty} />
+          <Route exact path="/fertilisers" component={Fertilisers} />
+          <Route exact path="/create-fert" component={CreateFert} />
         </Router>
         {/* try adding in modals here. */}
         <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
