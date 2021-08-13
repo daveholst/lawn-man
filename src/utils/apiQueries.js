@@ -26,3 +26,19 @@ export const GET_ME = gql`
     }
   }
 `;
+
+export const GET_FERTILISERS = gql`
+  query fertilisers {
+    fertilisers {
+      _id
+      productBrand
+      productName
+      type
+      description
+      applicationRate
+      manufacturerLink
+      bunningsLink
+      imageLink
+    }
+  }
+`;
