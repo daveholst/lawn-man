@@ -101,9 +101,13 @@ const CreateFertigate = () => {
 
       const runStatus = await runManualProgram({
         variables: {
-          propertyId: 'test',
-          stationNumber: 'test',
-          fertRuntime: 'test',
+          propertyId:
+            userData.properties[fertigationFormData.propertyIndex]._id,
+          stationNumber:
+            userData.properties[fertigationFormData.propertyIndex].zones[
+              fertigationFormData.stationIndex
+            ].stationNumber,
+          fertRuntime: '60', // in seconds
         },
       });
 
