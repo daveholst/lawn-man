@@ -108,6 +108,22 @@ export const EDIT_ZONE = gql`
   }
 `;
 
+export const RUN_MAN_PROG = gql`
+  mutation runManProg(
+    $propertyId: String!
+    $stationNumber: String!
+    $fertRuntime: String!
+  ) {
+    runManProg(
+      propertyId: $propertyId
+      stationNumber: $stationNumber
+      fertRuntime: $fertRuntime
+    ) {
+      message
+    }
+  }
+`;
+
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
