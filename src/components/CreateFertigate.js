@@ -58,7 +58,7 @@ const CreateFertigate = () => {
   const userData = userDataRes?.me;
   const {
     loading: fertLoading,
-    error: fertErrotRes,
+    error: fertErrorRes,
     data: fertDataRes,
   } = useQuery(GET_FERTILISERS);
   const fertData = fertDataRes?.fertilisers;
@@ -83,7 +83,9 @@ const CreateFertigate = () => {
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setFertigationFormData({ ...fertigationFormData, [name]: value });
+    // console.log(fertigationFormData);
   };
   const handleSubmit = async (e) => {
     // TODO: add some form validation? check material-UI docs.
@@ -139,7 +141,9 @@ const CreateFertigate = () => {
           >
             <option aria-label="None" value="" />
             {userData.properties.map((property, index) => (
-              <option value={index}>{property.propertyName}</option>
+              <option value={index} key={property._id}>
+                {property.propertyName}
+              </option>
             ))}
           </Select>
         </FormControl>
@@ -166,7 +170,9 @@ const CreateFertigate = () => {
             <option aria-label="None" value="" />
             {userData.properties[fertigationFormData.propertyIndex].zones.map(
               (zone, index) => (
-                <option value={index}>{zone.stationName}</option>
+                <option value={index} key={zone._id}>
+                  {zone.stationName}
+                </option>
               )
             )}
           </Select>
@@ -192,7 +198,7 @@ const CreateFertigate = () => {
           >
             <option aria-label="None" value="" />
             {fertData.map((fert, index) => (
-              <option value={index}>
+              <option value={index} key={fert._id}>
                 {fert.productBrand} {fert.productName}
               </option>
             ))}
@@ -219,7 +225,7 @@ const CreateFertigate = () => {
           >
             <option aria-label="None" value="" />
             {fertData.map((fert, index) => (
-              <option value={index}>
+              <option value={index} key={fert._id}>
                 {fert.productBrand} {fert.productName}
               </option>
             ))}
@@ -246,14 +252,52 @@ const CreateFertigate = () => {
           >
             <option aria-label="None" value="" />
             {fertData.map((fert, index) => (
-              <option value={index}>
+              <option value={index} key={fert._id}>
                 {fert.productBrand} {fert.productName}
               </option>
             ))}
           </Select>
         </FormControl>
         {/* TODO: Recipe card in here */}
-        <RecipeCard />
+        <RecipeCard
+          propertyName={
+            userData.properties[fertigationFormData.propertyIndex].propertyName
+          }
+          stationName={
+            fertigationFormData.stationIndex
+              ? userData.properties[fertigationFormData.propertyIndex].zones[
+                  fertigationFormData.stationIndex
+                ].stationName
+              : ''
+          }
+          stationArea={
+            // console.log(
+            //   userData.properties[fertigationFormData.propertyIndex].zones[
+            //     fertigationFormData.stationIndex
+            //   ].area
+            // )
+            fertigationFormData.stationIndex
+              ? userData.properties[fertigationFormData.propertyIndex].zones[
+                  fertigationFormData.stationIndex
+                ].area
+              : ''
+          }
+          fert1Obj={
+            fertigationFormData.fert1Index
+              ? fertData[fertigationFormData.fert1Index]
+              : null
+          }
+          fert2Obj={
+            fertigationFormData.fert2Index
+              ? fertData[fertigationFormData.fert1Index]
+              : null
+          }
+          fert3Obj={
+            fertigationFormData.fert3Index
+              ? fertData[fertigationFormData.fert1Index]
+              : null
+          }
+        />
         <Button
           className={classes.button}
           type="submit"
