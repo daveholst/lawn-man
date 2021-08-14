@@ -16,7 +16,7 @@ import {
   Link,
   Divider,
 } from '@material-ui/core';
-import { ADD_FERTILISER } from '../utils/apiMutations';
+import { ADD_FERTILISER, RUN_MAN_PROG } from '../utils/apiMutations';
 import { GET_FERTILISERS, GET_ME } from '../utils/apiQueries';
 import ZoneCard from './ZoneCard';
 import RecipeCard from './RecipeCard';
@@ -54,6 +54,9 @@ const CreateFertigate = () => {
       refetchQueries: [{ query: GET_FERTILISERS }],
     });
 
+  const [runManualProgram, { _runManualError, _runManualData }] =
+    useMutation(RUN_MAN_PROG);
+
   const { loading, error: userErrorRes, data: userDataRes } = useQuery(GET_ME);
   const userData = userDataRes?.me;
   const {
@@ -88,23 +91,33 @@ const CreateFertigate = () => {
     // console.log(fertigationFormData);
   };
   const handleSubmit = async (e) => {
-    // TODO: add some form validation? check material-UI docs.
     e.preventDefault();
     console.log(fertigationFormData);
     try {
       // TODO Send data to DB
-      const fertiliser = await createFertiliser({
-        variables: { addFertiliserInput: fertigationFormData },
+      // const fertiliser = await createFertiliser({
+      //   variables: { addFertiliserInput: fertigationFormData },
+      // });
+
+      const runStatus = await runManualProgram({
+        variables: {
+          propertyId:
+            userData.properties[fertigationFormData.propertyIndex]._id,
+          stationNumber:
+            userData.properties[fertigationFormData.propertyIndex].zones[
+              fertigationFormData.stationIndex
+            ].stationNumber,
+          fertRuntime: '60', // in seconds
+        },
       });
-      console.log(fertiliser);
-      history.push('/fertilisers');
-      if (!fertiliser) {
+
+      console.log(runStatus);
+      // history.push('/fertilisers');
+      if (!runStatus) {
         throw new Error('something went wrong!');
       }
     } catch (err) {
       console.error(err);
-      // TODO alert front end on failure
-      // setShowAlert(true);
     }
   };
   const classes = useStyles();
