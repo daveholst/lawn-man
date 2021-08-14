@@ -139,7 +139,7 @@ const CreateFertigate = () => {
               id: 'outlined-age-native-simple',
             }}
           >
-            <option aria-label="None" value="" />
+            {/* <option aria-label="None" value="" /> */}
             {userData.properties.map((property, index) => (
               <option value={index} key={property._id}>
                 {property.propertyName}
@@ -168,13 +168,14 @@ const CreateFertigate = () => {
             }}
           >
             <option aria-label="None" value="" />
-            {userData.properties[fertigationFormData.propertyIndex].zones.map(
-              (zone, index) => (
-                <option value={index} key={zone._id}>
-                  {zone.stationName}
-                </option>
-              )
-            )}
+            {fertigationFormData.propertyIndex &&
+              userData.properties[fertigationFormData.propertyIndex].zones.map(
+                (zone, index) => (
+                  <option value={index} key={zone._id}>
+                    {zone.stationName}
+                  </option>
+                )
+              )}
           </Select>
         </FormControl>
         <FormControl>
@@ -259,45 +260,48 @@ const CreateFertigate = () => {
           </Select>
         </FormControl>
         {/* TODO: Recipe card in here */}
-        <RecipeCard
-          propertyName={
-            userData.properties[fertigationFormData.propertyIndex].propertyName
-          }
-          stationName={
-            fertigationFormData.stationIndex
-              ? userData.properties[fertigationFormData.propertyIndex].zones[
-                  fertigationFormData.stationIndex
-                ].stationName
-              : ''
-          }
-          stationArea={
-            // console.log(
-            //   userData.properties[fertigationFormData.propertyIndex].zones[
-            //     fertigationFormData.stationIndex
-            //   ].area
-            // )
-            fertigationFormData.stationIndex
-              ? userData.properties[fertigationFormData.propertyIndex].zones[
-                  fertigationFormData.stationIndex
-                ].area
-              : ''
-          }
-          fert1Obj={
-            fertigationFormData.fert1Index
-              ? fertData[fertigationFormData.fert1Index]
-              : null
-          }
-          fert2Obj={
-            fertigationFormData.fert2Index
-              ? fertData[fertigationFormData.fert1Index]
-              : null
-          }
-          fert3Obj={
-            fertigationFormData.fert3Index
-              ? fertData[fertigationFormData.fert1Index]
-              : null
-          }
-        />
+        {fertigationFormData.stationIndex && (
+          <RecipeCard
+            propertyName={
+              userData.properties[fertigationFormData.propertyIndex]
+                .propertyName
+            }
+            stationName={
+              fertigationFormData.stationIndex
+                ? userData.properties[fertigationFormData.propertyIndex].zones[
+                    fertigationFormData.stationIndex
+                  ].stationName
+                : ''
+            }
+            stationArea={
+              // console.log(
+              //   userData.properties[fertigationFormData.propertyIndex].zones[
+              //     fertigationFormData.stationIndex
+              //   ].area
+              // )
+              fertigationFormData.stationIndex
+                ? userData.properties[fertigationFormData.propertyIndex].zones[
+                    fertigationFormData.stationIndex
+                  ].area
+                : ''
+            }
+            fert1Obj={
+              fertigationFormData.fert1Index
+                ? fertData[fertigationFormData.fert1Index]
+                : null
+            }
+            fert2Obj={
+              fertigationFormData.fert2Index
+                ? fertData[fertigationFormData.fert2Index]
+                : null
+            }
+            fert3Obj={
+              fertigationFormData.fert3Index
+                ? fertData[fertigationFormData.fert3Index]
+                : null
+            }
+          />
+        )}
         <Button
           className={classes.button}
           type="submit"
@@ -308,7 +312,7 @@ const CreateFertigate = () => {
           size="large"
           fullWidth
         >
-          Save Fertiliser
+          RUN PROGRAME
         </Button>
       </form>
     </Container>

@@ -64,10 +64,10 @@ const RecipeCard = ({
         <>
           <Typography className={classes.fertHeading}>Fertiliser 2</Typography>
           <Typography>
-            <b>Product:</b>
+            <b>Product:</b> {fert2Obj.productBrand} - {fert2Obj.productName}
           </Typography>
           <Typography>
-            <b>Amount to Add:</b> mL
+            <b>Amount to Add:</b> {stationArea * fert2Obj.applicationRate} mL
           </Typography>
         </>
       )}
@@ -76,11 +76,10 @@ const RecipeCard = ({
           <br />
           <Typography className={classes.fertHeading}>Fertiliser 3</Typography>
           <Typography>
-            <b>Product:</b>
+            <b>Product:</b> {fert3Obj.productBrand} - {fert3Obj.productName}
           </Typography>
           <Typography>
-            <b>Amount to Add:</b>
-            {} mL
+            <b>Amount to Add:</b> {stationArea * fert3Obj.applicationRate} mL
           </Typography>
         </>
       )}
