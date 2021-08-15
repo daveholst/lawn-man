@@ -89,7 +89,7 @@ const LoginForm = ({ handleClose }) => {
       <TextField
         label="Email"
         name="email"
-        variant="filled"
+        variant="outlined"
         type="email"
         required
         onChange={handleInputChange}
@@ -99,7 +99,7 @@ const LoginForm = ({ handleClose }) => {
       <TextField
         label="Password"
         name="password"
-        variant="filled"
+        variant="outlined"
         type="password"
         required
         error={showPasswordAlert}
