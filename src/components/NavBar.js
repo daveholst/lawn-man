@@ -9,7 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
-import { Box } from '@material-ui/core';
+import { Box, Link } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
 import Auth from '../utils/authUtils';
 
 const NavBar = ({ loginOnClick }) => {
@@ -28,6 +29,7 @@ const NavBar = ({ loginOnClick }) => {
     title: {
       flexGrow: 1,
       fontWeight: 600,
+      color: 'white',
     },
   }));
   const classes = useStyles();
@@ -51,7 +53,9 @@ const NavBar = ({ loginOnClick }) => {
       <AppBar className={classes.appbar} position="sticky" elevation={0}>
         <Toolbar variant="dense">
           <Typography variant="h6" className={classes.title}>
-            Lawn Manager
+            <Link href="/" color="inherit" underline="none">
+              Lawn Manager
+            </Link>
           </Typography>
           <Box mr={-3}>
             <IconButton
@@ -71,7 +75,9 @@ const NavBar = ({ loginOnClick }) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <Link underline="none" href="/dashboard" color="inherit">
+              <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+            </Link>
             <MenuItem onClick={handleClose}>My account</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
