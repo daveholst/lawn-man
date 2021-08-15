@@ -33,6 +33,10 @@ const LoginForm = ({ handleClose }) => {
     password: '',
   });
 
+  const [showEmailAlert, setEmailShowAlert] = useState(false);
+  const [showPasswordAlert, setPasswordShowAlert] = useState(false);
+  const [alertText, setAlertText] = useState('');
+
   // mutation for login user
   const [loginUser, { _loginUserError, _loginUserData }] =
     useMutation(LOGIN_USER);
@@ -43,9 +47,10 @@ const LoginForm = ({ handleClose }) => {
   };
 
   const handleSubmit = async (e) => {
+    setEmailShowAlert(false);
+    setPasswordShowAlert(false);
     // TODO: add some form validation? check material-UI docs.
     e.preventDefault();
-    handleClose();
     // add user to db through api
     try {
       const { data } = await loginUser({
@@ -58,11 +63,20 @@ const LoginForm = ({ handleClose }) => {
       const { token, user } = data.login;
       // login and save token
       Auth.login(token);
+      handleClose();
       // redirect to dashboard
     } catch (err) {
-      console.error(err);
-      // TODO alert front end on failure
-      // setShowAlert(true);
+      if (err.message === 'Could not Find user') {
+        setAlertText('Could not find user with that email');
+        setEmailShowAlert(true);
+      } else if (err.message === 'Incorrect Password') {
+        setAlertText(err.message);
+        setPasswordShowAlert(true);
+      } else {
+        console.error(err);
+      }
+
+      // setAlertText(err.message);
     }
   };
 
@@ -75,19 +89,24 @@ const LoginForm = ({ handleClose }) => {
       <TextField
         label="Email"
         name="email"
-        variant="filled"
+        variant="outlined"
         type="email"
         required
         onChange={handleInputChange}
+        error={showEmailAlert}
+        helperText={showEmailAlert ? alertText : null}
       />
       <TextField
         label="Password"
         name="password"
-        variant="filled"
+        variant="outlined"
         type="password"
         required
+        error={showPasswordAlert}
+        helperText={showPasswordAlert ? alertText : null}
         onChange={handleInputChange}
       />
+      {/* { showAlert && } */}
       <div>
         <Button variant="contained" onClick={handleClose}>
           Cancel

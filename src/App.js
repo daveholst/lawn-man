@@ -78,7 +78,10 @@ const App = () => {
   return (
     <ApolloProvider ApolloProvider client={apolloClient}>
       <CssBaseline>
-        <NavBar loginOnClick={handleLoginOpen} />
+        <NavBar
+          loginOnClick={handleLoginOpen}
+          isAuthenticated={isAuthenticated}
+        />
 
         <Router>
           <Route

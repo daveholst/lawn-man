@@ -80,21 +80,21 @@ const SignUpForm = ({ handleClose }) => {
       <TextField
         label="First Name"
         name="firstName"
-        variant="filled"
+        variant="outlined"
         required
         onChange={handleInputChange}
       />
       <TextField
         label="Last Name"
         name="lastName"
-        variant="filled"
+        variant="outlined"
         required
         onChange={handleInputChange}
       />
       <TextField
         label="Email"
         name="email"
-        variant="filled"
+        variant="outlined"
         type="email"
         required
         onChange={handleInputChange}
@@ -102,7 +102,7 @@ const SignUpForm = ({ handleClose }) => {
       <TextField
         label="Password"
         name="password"
-        variant="filled"
+        variant="outlined"
         type="password"
         required
         onChange={handleInputChange}

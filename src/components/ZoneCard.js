@@ -87,9 +87,11 @@ const ZoneCard = ({
               </Typography>
             </Grid>
             <Grid item container justifyContent="space-between" direction="row">
-              <Button size="small" variant="contained" color="primary">
-                FERTIGATE
-              </Button>
+              <Link underline="none" href="/create-fertigate" color="inherit">
+                <Button size="small" variant="contained" color="primary">
+                  FERTIGATE
+                </Button>
+              </Link>
               <Button
                 size="small"
                 variant="contained"

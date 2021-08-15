@@ -177,8 +177,8 @@ const CreateProperty = () => {
             <option value="Mild Tropical">Mild Tropical</option>
             <option value="Semi-arid">Semi-arid</option>
             <option value="Arid">Arid</option>
-            <option value="Mild Tropical">Mild Tropical</option>
-            <option value="Tropical">Tropical</option>
+            <option value="Temperate">Temperate</option>
+            <option value="Cool">Cool</option>
           </Select>
         </FormControl>
         <Link href="https://www.gardenexpress.com.au/australian-climate-guide/">
