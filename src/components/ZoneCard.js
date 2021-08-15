@@ -27,6 +27,31 @@ const ZoneCard = ({
 }) => {
   const [editFormVisible, setEditFormVisible] = useState(false);
 
+  const backgroundColor = (testType) => {
+    let stationBackgroundColor = '';
+    switch (type) {
+      case 'Master Valve':
+        stationBackgroundColor = '#eddcd2';
+        break;
+      case 'Lawn':
+        stationBackgroundColor = '#c5dedd';
+        break;
+      case 'Vegetables':
+        stationBackgroundColor = '#fad2e1';
+        break;
+      case 'Fruit Trees':
+        stationBackgroundColor = '#99c1de';
+        break;
+      case 'Mixed':
+        stationBackgroundColor = '#99c1de';
+        break;
+
+      default:
+        break;
+    }
+    return stationBackgroundColor;
+  };
+
   const useStyles = makeStyles(() => ({
     root: {
       flexGrow: 1,
@@ -40,6 +65,7 @@ const ZoneCard = ({
     image: {
       width: 128,
       height: 128,
+      backgroundColor: backgroundColor(type),
     },
     editForm: {
       marginTop: '1rem',
