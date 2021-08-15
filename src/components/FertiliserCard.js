@@ -148,14 +148,16 @@ const FertiliserCard = ({
               BUY
             </Button>
           </Link>
-          <Button
-            size="small"
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            FERTIGATE
-          </Button>
+          <Link underline="none" href="/create-fertigate" color="inherit">
+            <Button
+              size="small"
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
+              FERTIGATE
+            </Button>
+          </Link>
           <Button
             size="small"
             variant="contained"

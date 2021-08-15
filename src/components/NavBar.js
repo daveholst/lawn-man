@@ -47,6 +47,10 @@ const NavBar = ({ loginOnClick, isAuthenticated }) => {
     handleClose();
     Auth.logout();
   };
+  const handleLogin = () => {
+    handleClose();
+    loginOnClick();
+  };
 
   return (
     <>
@@ -78,11 +82,17 @@ const NavBar = ({ loginOnClick, isAuthenticated }) => {
             <Link underline="none" href="/dashboard" color="inherit">
               <MenuItem onClick={handleClose}>Dashboard</MenuItem>
             </Link>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <Link underline="none" href="/fertilisers" color="inherit">
+              <MenuItem onClick={handleClose}>Fertilisers</MenuItem>
+            </Link>
+            <Link underline="none" href="/create-fertigate" color="inherit">
+              <MenuItem onClick={handleClose}>Fertigate</MenuItem>
+            </Link>
+
             {isAuthenticated ? (
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             ) : (
-              <MenuItem onClick={loginOnClick}>Login</MenuItem>
+              <MenuItem onClick={handleLogin}>Login</MenuItem>
             )}
           </Menu>
         </Toolbar>
