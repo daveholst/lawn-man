@@ -13,7 +13,7 @@ import { Box, Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import Auth from '../utils/authUtils';
 
-const NavBar = ({ loginOnClick }) => {
+const NavBar = ({ loginOnClick, isAuthenticated }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -79,7 +79,11 @@ const NavBar = ({ loginOnClick }) => {
               <MenuItem onClick={handleClose}>Dashboard</MenuItem>
             </Link>
             <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            {isAuthenticated ? (
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            ) : (
+              <MenuItem onClick={loginOnClick}>Login</MenuItem>
+            )}
           </Menu>
         </Toolbar>
       </AppBar>
@@ -89,6 +93,7 @@ const NavBar = ({ loginOnClick }) => {
 
 NavBar.propTypes = {
   loginOnClick: PropTypes.func,
+  isAuthenticated: PropTypes.bool,
 };
 
 export default NavBar;

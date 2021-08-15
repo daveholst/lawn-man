@@ -43,11 +43,19 @@ const Dashboard = () => {
   const userData = userDataRes?.me;
 
   if (userErrorRes) {
-    return <h2>{userErrorRes.message}</h2>;
+    return (
+      <Container maxWidth="md" className={classes.root}>
+        <h2>{userErrorRes.message}</h2>
+      </Container>
+    );
   }
 
   if (loading) {
-    return <h2>LOADING...</h2>;
+    return (
+      <Container maxWidth="md" className={classes.root}>
+        <h2>LOADING...</h2>;
+      </Container>
+    );
   }
   console.log(userData);
   if (userData.properties.length === 0) {
