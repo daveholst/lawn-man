@@ -14,6 +14,8 @@ import {
   Select,
   Link,
   Divider,
+  CircularProgress,
+  Hidden,
 } from '@material-ui/core';
 import { ADD_PROPERTY, ADD_ZONES } from '../utils/apiMutations';
 import { stationNames } from '../utils/openSprinkler';
@@ -44,6 +46,9 @@ const CreateProperty = () => {
       fontSize: '1.5rem',
       fontWeight: '400',
     },
+    progress: {
+      margin: '.5rem auto',
+    },
   }));
   const history = useHistory();
 
@@ -66,18 +71,18 @@ const CreateProperty = () => {
     openSprinklerKey: '',
     climate: '',
   });
-  // TODO add mutation
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
     setPropertyFormData({ ...propertyFormData, [name]: value });
   };
   const handleSubmit = async (e) => {
-    // TODO: add some form validation? check material-UI docs.
     e.preventDefault();
-    console.log(propertyFormData);
+    // console.log(propertyFormData);
     try {
-      // TODO Send data to DB
+      setIsLoading(true);
       const { data } = await createProperty({
         variables: { ...propertyFormData },
       });
@@ -197,10 +202,7 @@ const CreateProperty = () => {
         >
           Save Property
         </Button>
-
-        {/* <FormHelperText id="my-helper-text">
-          We'll never share your email.
-        </FormHelperText> */}
+        {isLoading && <CircularProgress className={classes.progress} />}
       </form>
     </Container>
   );
