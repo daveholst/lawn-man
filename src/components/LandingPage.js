@@ -58,17 +58,21 @@ const LandingPage = ({ handleLoginOpen, handleSignUpOpen }) => {
                 <b>Lawn Manager</b>
               </span>
             </Typography>
+            <br />
             <Typography variant="subtitle1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam,
-              culpa consequatur? Dolores iusto natus quaerat impedit excepturi
-              eligendi tempore quibusdam, porro corrupti voluptates dignissimos
-              ducimus nobis sapiente maiores perferendis saepe.
+              Lawn Manager is a cloud based automatic garden fertilising system
+              that integrates with your preexisting irrigation stations to
+              deliver fertiliser through your sprinklers. We call it
+              fertigation. It is suitable for all types of garden beds and
+              provides an easy no fuss solution to maintaining healthy plants
+              and sub-root systems.
             </Typography>
             <br />
             <div className={classes.buttonsWrapper}>
               <Box mr={2}>
                 <Button
                   variant="contained"
+                  size="large"
                   color="primary"
                   onClick={handleSignUpOpen}
                 >
@@ -77,7 +81,7 @@ const LandingPage = ({ handleLoginOpen, handleSignUpOpen }) => {
               </Box>
               <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 onClick={handleLoginOpen}
               >
                 Login
