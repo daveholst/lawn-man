@@ -40,39 +40,23 @@ const LandingPage = ({ handleLoginOpen, handleSignUpOpen }) => {
     buttonsWrapper: {
       display: 'flex',
       flexDirection: 'row',
-      // justifyContent: 'space-evenly',
     },
     buttons: {
       paddingRight: '1rem',
     },
   }));
   const classes = useStyles();
-  // // declare a new state variable for modal open
-  // const [signUpOpen, setSignUpOpen] = useState(false);
-  // const [loginOpen, setLoginOpen] = useState(false);
-  // // function to handle signup modal open
-  // const handleSignUpOpen = () => {
-  //   setSignUpOpen(true);
-  // };
-  // const handleSignUpClose = () => {
-  //   setSignUpOpen(false);
-  // };
-  // // function to handle login modal open
-  // const handleLoginOpen = () => {
-  //   setLoginOpen(true);
-  // };
-  // const handleLoginClose = () => {
-  //   setLoginOpen(false);
-  // };
 
   return (
     <>
       <div className={classes.root}>
-        {/* <NavBar loginOnClick={handleLoginOpen} /> */}
         <div className={classes.welcome}>
           <Box mx="auto" className={classes.welcomeBox}>
             <Typography variant="h1">
-              Welcome to <span>Lawn Man</span>
+              Welcome to{' '}
+              <span>
+                <b>Lawn Manager</b>
+              </span>
             </Typography>
             <Typography variant="subtitle1">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam,
@@ -101,10 +85,7 @@ const LandingPage = ({ handleLoginOpen, handleSignUpOpen }) => {
             </div>
           </Box>
         </div>
-        {/* // display the modal and pass props */}
       </div>
-      {/* <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
-      <LoginDialog open={loginOpen} handleClose={handleLoginClose} /> */}
     </>
   );
 };
