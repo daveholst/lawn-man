@@ -107,7 +107,7 @@ const CreateFertigate = () => {
             userData.properties[fertigationFormData.propertyIndex].zones[
               fertigationFormData.stationIndex
             ].stationNumber,
-          fertRuntime: '60', // in seconds
+          fertRuntime: '1200', // in seconds - 20min station run time
         },
       });
 
