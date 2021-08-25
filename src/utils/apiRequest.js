@@ -4,7 +4,7 @@ import auth from './authUtils';
 const client = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
-      ? 'https://lawn-man-server.holst.club/api'
+      ? 'https://lawn-man-server-rest.holst.club/api'
       : 'http://localhost:3001/api',
 });
 
@@ -22,6 +22,15 @@ const request = async ({ ...options }) => {
 export const getMe = async () => {
   const res = await request({
     url: '/user/me',
+  });
+  return res.data;
+};
+
+export const signup = async (newUserData) => {
+  const res = await request({
+    method: 'post',
+    url: '/user/signup',
+    data: newUserData,
   });
   return res.data;
 };

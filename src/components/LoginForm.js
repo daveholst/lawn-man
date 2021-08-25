@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
 
 import PropTypes from 'prop-types';
 
@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import Auth from '../utils/authUtils';
-import { LOGIN_USER } from '../utils/apiMutations';
+// import { LOGIN_USER } from '../utils/apiMutations';
 
 const LoginForm = ({ handleClose }) => {
   // styling
@@ -39,8 +39,8 @@ const LoginForm = ({ handleClose }) => {
   const [alertText, setAlertText] = useState('');
 
   // mutation for login user
-  const [loginUser, { _loginUserError, _loginUserData }] =
-    useMutation(LOGIN_USER);
+  // const [loginUser, { _loginUserError, _loginUserData }] =
+  // useMutation(LOGIN_USER);
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
