@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -17,9 +17,11 @@ import {
   CircularProgress,
   Hidden,
 } from '@material-ui/core';
-import { ADD_PROPERTY, ADD_ZONES } from '../utils/apiMutations';
+// import { ADD_PROPERTY, ADD_ZONES } from '../utils/apiMutations';
+import { useMutation } from 'react-query';
+import { addProperty } from '../utils/apiRequest';
 import { stationNames } from '../utils/openSprinkler';
-import { GET_ME } from '../utils/apiQueries';
+// import { GET_ME } from '../utils/apiQueries';
 
 const CreateProperty = () => {
   const useStyles = makeStyles((theme) => ({
@@ -52,16 +54,21 @@ const CreateProperty = () => {
   }));
   const history = useHistory();
 
-  const [createProperty, { _createPropertyError, _createPropertyData }] =
-    useMutation(ADD_PROPERTY, {
-      refetchQueries: [{ query: GET_ME }],
-    });
-  const [createZones, { _createZonesError, _createZonesData }] = useMutation(
-    ADD_ZONES,
-    {
-      refetchQueries: [{ query: GET_ME }],
-    }
+  // const [createProperty, { _createPropertyError, _createPropertyData }] =
+  //   useMutation(ADD_PROPERTY, {
+  //     refetchQueries: [{ query: GET_ME }],
+  //   });
+
+  const addNewProperty = useMutation((newPropertyData) =>
+    addProperty(newPropertyData)
   );
+
+  // const [createZones, { _createZonesError, _createZonesData }] = useMutation(
+  //   ADD_ZONES,
+  //   {
+  //     refetchQueries: [{ query: GET_ME }],
+  //   }
+  // );
 
   const [propertyFormData, setPropertyFormData] = useState({
     propertyName: '',
@@ -83,16 +90,17 @@ const CreateProperty = () => {
     // console.log(propertyFormData);
     try {
       setIsLoading(true);
-      const { data } = await createProperty({
-        variables: { ...propertyFormData },
-      });
+      // const { data } = await createProperty({
+      //   variables: { ...propertyFormData },
+      // });
+      const data = await addNewProperty.mutate(propertyFormData);
       const stations = await stationNames(propertyFormData);
-      const cZres = await createZones({
-        variables: {
-          propertyName: propertyFormData.propertyName,
-          addZonesInput: stations,
-        },
-      });
+      // const cZres = await createZones({
+      //   variables: {
+      //     propertyName: propertyFormData.propertyName,
+      //     addZonesInput: stations,
+      //   },
+      // });
       // !! seems to be jumping the gun here?
       history.push('/dashboard');
       if (!data) {

@@ -34,3 +34,11 @@ export const signup = async (newUserData) => {
   });
   return res.data;
 };
+
+export const addProperty = async (newPropertyDaya) => {
+  const res = await request({
+    method: 'post',
+    url: '/user/property',
+    data: newPropertyDaya,
+  });
+};

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-// import { useMutation } from '@apollo/client';
-
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import { useMutation } from 'react-query';
 import Auth from '../utils/authUtils';
 import { signup } from '../utils/apiRequest';
-// import { ADD_USER } from '../utils/apiMutations';
 
 const SignUpForm = ({ handleClose }) => {
   // styling
@@ -37,9 +34,6 @@ const SignUpForm = ({ handleClose }) => {
     password: '',
   });
 
-  // mutation for create user
-  // const [createUser, { _createUserError, _createUserData }] =
-  //   useMutation(ADD_USER);
   const createUser = useMutation((newUserData) => signup(newUserData), {
     onSuccess: (data) => {
       console.log(data);
