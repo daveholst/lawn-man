@@ -52,7 +52,7 @@ const Dashboard = () => {
   const { isLoading, isError, data, error } = useQuery('todos', getMe);
 
   const userData = data;
-  console.log(userData);
+  // console.log(userData);
   if (isError) {
     return (
       <Container maxWidth="md" className={classes.root}>
