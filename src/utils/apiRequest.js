@@ -3,9 +3,11 @@ import auth from './authUtils';
 
 const client = axios.create({
   baseURL:
-    process.env.NODE_ENV === 'production'
-      ? 'https://lawn-man-server-rest.holst.club/api'
-      : 'http://localhost:3001/api',
+    //! build not honoring the enviro variable and deploying with localhost as baseURL -- not sure why?
+    // process.env.NODE_ENV === 'production'
+    //   ? 'https://lawn-man-server-rest.holst.club/api'
+    //   : 'http://localhost:3001/api',
+    'https://lawn-man-server-rest.holst.club/api',
 });
 
 const request = async ({ ...options }) => {
