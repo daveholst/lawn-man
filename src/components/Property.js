@@ -23,7 +23,7 @@ const Property = ({ propertyName, address, juiceBoxId, climate, zones }) => {
     },
   }));
   const classes = useStyles();
-  console.log(propertyName);
+  // console.log(propertyName);
   return (
     <Container className={classes.property}>
       <Box className={classes.propertyInfo}>

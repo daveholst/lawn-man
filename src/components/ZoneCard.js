@@ -147,7 +147,7 @@ const ZoneCard = ({
 };
 
 ZoneCard.propTypes = {
-  stationNumber: PropTypes.string,
+  stationNumber: PropTypes.number,
   stationName: PropTypes.string,
   type: PropTypes.string,
   area: PropTypes.string,

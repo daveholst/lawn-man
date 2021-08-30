@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { useMutation } from 'react-query';
 import Auth from '../utils/authUtils';
-import { ADD_USER } from '../utils/apiMutations';
+import { signup } from '../utils/apiRequest';
 
 const SignUpForm = ({ handleClose }) => {
   // styling
@@ -35,9 +34,15 @@ const SignUpForm = ({ handleClose }) => {
     password: '',
   });
 
-  // mutation for create user
-  const [createUser, { _createUserError, _createUserData }] =
-    useMutation(ADD_USER);
+  const createUser = useMutation((newUserData) => signup(newUserData), {
+    onSuccess: (data) => {
+      console.log(data);
+      // login and save token
+      Auth.login(data.token);
+      // redirect to dashboard
+      handleClose();
+    },
+  });
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
@@ -47,23 +52,9 @@ const SignUpForm = ({ handleClose }) => {
   const handleSubmit = async (e) => {
     // TODO: add some form validation? check material-UI docs.
     e.preventDefault();
-    console.log(userFormData);
-    handleClose();
     // add user to db through api
     try {
-      const { data } = await createUser({
-        variables: { ...userFormData },
-      });
-      if (!data) {
-        throw new Error('something went wrong!');
-      }
-
-      const { token, user } = data.addUser;
-      // TODO apply login
-      console.log(token, user);
-      // login and save token
-      Auth.login(token);
-      // redirect to dashboard
+      await createUser.mutate(userFormData);
     } catch (err) {
       console.error(err);
       // TODO alert front end on failure

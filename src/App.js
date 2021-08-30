@@ -10,6 +10,14 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+// import reactQuery
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
 
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
@@ -21,6 +29,9 @@ import NavBar from './components/NavBar';
 import Fertilisers from './components/Fertilisers';
 import CreateFert from './components/CreateFert';
 import CreateFertigate from './components/CreateFertigate';
+// create react-query provider
+const queryClient = new QueryClient();
+
 // build graphQl endpoint
 const httpLink = createHttpLink({
   uri:
@@ -77,39 +88,41 @@ const App = () => {
 
   return (
     <ApolloProvider ApolloProvider client={apolloClient}>
-      <CssBaseline>
-        <NavBar
-          loginOnClick={handleLoginOpen}
-          isAuthenticated={isAuthenticated}
-        />
-
-        <Router>
-          <Route
-            exact
-            path="/"
-            render={() =>
-              isAuthenticated ? (
-                <Dashboard />
-              ) : (
-                <LandingPage
-                  handleLoginOpen={handleLoginOpen}
-                  handleSignUpOpen={handleSignUpOpen}
-                />
-              )
-            }
+      <QueryClientProvider client={queryClient}>
+        <CssBaseline>
+          <NavBar
+            loginOnClick={handleLoginOpen}
+            isAuthenticated={isAuthenticated}
           />
-          <Route exact path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route exact path="/create-property" component={CreateProperty} />
-          <Route exact path="/fertilisers" component={Fertilisers} />
-          <Route exact path="/create-fert" component={CreateFert} />
-          <Route exact path="/create-fertigate" component={CreateFertigate} />
-        </Router>
-        {/* try adding in modals here. */}
-        <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
-        <LoginDialog open={loginOpen} handleClose={handleLoginClose} />
-      </CssBaseline>
+
+          <Router>
+            <Route
+              exact
+              path="/"
+              render={() =>
+                isAuthenticated ? (
+                  <Dashboard />
+                ) : (
+                  <LandingPage
+                    handleLoginOpen={handleLoginOpen}
+                    handleSignUpOpen={handleSignUpOpen}
+                  />
+                )
+              }
+            />
+            <Route exact path="/dashboard">
+              <Dashboard />
+            </Route>
+            <Route exact path="/create-property" component={CreateProperty} />
+            <Route exact path="/fertilisers" component={Fertilisers} />
+            <Route exact path="/create-fert" component={CreateFert} />
+            <Route exact path="/create-fertigate" component={CreateFertigate} />
+          </Router>
+          {/* try adding in modals here. */}
+          <SignUpDialog open={signUpOpen} handleClose={handleSignUpClose} />
+          <LoginDialog open={loginOpen} handleClose={handleLoginClose} />
+        </CssBaseline>
+      </QueryClientProvider>
     </ApolloProvider>
   );
 };

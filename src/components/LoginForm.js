@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
 
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 import Auth from '../utils/authUtils';
-import { LOGIN_USER } from '../utils/apiMutations';
+// import { LOGIN_USER } from '../utils/apiMutations';
 
 const LoginForm = ({ handleClose }) => {
   // styling
@@ -38,8 +39,8 @@ const LoginForm = ({ handleClose }) => {
   const [alertText, setAlertText] = useState('');
 
   // mutation for login user
-  const [loginUser, { _loginUserError, _loginUserData }] =
-    useMutation(LOGIN_USER);
+  // const [loginUser, { _loginUserError, _loginUserData }] =
+  // useMutation(LOGIN_USER);
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
@@ -53,27 +54,35 @@ const LoginForm = ({ handleClose }) => {
     e.preventDefault();
     // add user to db through api
     try {
-      const { data } = await loginUser({
-        variables: { ...userFormData },
+      // const { data } = await loginUser({
+      //   variables: { ...userFormData },
+      // });
+      const { data } = await axios({
+        method: 'post',
+        url: 'http://localhost:3001/api/user/login',
+        data: { ...userFormData },
+        headers: { Authorization: Auth.getToken() },
       });
+
       if (!data) {
         throw new Error('something went wrong!');
       }
       console.log(data);
-      const { token, user } = data.login;
+
+      const { token, user } = data;
       // login and save token
       Auth.login(token);
       handleClose();
       // redirect to dashboard
     } catch (err) {
-      if (err.message === 'Could not Find user') {
-        setAlertText('Could not find user with that email');
+      if (err.response.data.message === 'No user with that email!') {
+        setAlertText(err.response.data.message);
         setEmailShowAlert(true);
-      } else if (err.message === 'Incorrect Password') {
-        setAlertText(err.message);
+      } else if (err.response.data.message === 'Wrong Password') {
+        setAlertText(err.response.data.message);
         setPasswordShowAlert(true);
       } else {
-        console.error(err);
+        console.dir(err);
       }
 
       // setAlertText(err.message);

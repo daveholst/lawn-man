@@ -15,8 +15,10 @@ import {
   InputLabel,
   Container,
 } from '@material-ui/core';
-import { useMutation } from '@apollo/client';
-import { EDIT_ZONE } from '../utils/apiMutations';
+// import { useMutation } from '@apollo/client';
+// import { EDIT_ZONE } from '../utils/apiMutations';
+import { useMutation, useQueryClient } from 'react-query';
+import { editZone } from '../utils/apiRequest';
 
 const EditZoneForm = ({
   zoneId,
@@ -26,8 +28,18 @@ const EditZoneForm = ({
   type,
   propertyName,
 }) => {
-  const [updateZone, { _updateZoneError, _updateZoneData }] =
-    useMutation(EDIT_ZONE);
+  // const [updateZone, { _updateZoneError, _updateZoneData }] =
+  //   useMutation(EDIT_ZONE);
+
+  const editCurrentZone = useMutation(
+    (newPropertyData) => editZone(newPropertyData),
+    {
+      onSuccess: (data) => {
+        window.location.reload();
+        console.log('inside onSuccess ', data);
+      },
+    }
+  );
 
   const [zoneFormData, setZoneFormData] = useState({
     stationNumber,
@@ -44,24 +56,26 @@ const EditZoneForm = ({
   const handleSubmit = async (e) => {
     // TODO: add some form validation? check material-UI docs.
     e.preventDefault();
-    console.log(zoneFormData);
-    console.log({
-      zoneId,
-      editZonesInput: zoneFormData,
-    });
+    // console.log(zoneFormData);
+    // console.log({
+    //   zoneId,
+    //   editZonesInput: zoneFormData,
+    // });
     // add user to db through api
     try {
-      const { data } = await updateZone({
-        variables: {
-          propertyName,
-          zoneId,
-          editZonesInput: zoneFormData,
-        },
+      // const { data } = await updateZone({
+      //   variables: {
+      //     propertyName,
+      //     zoneId,
+      //     editZonesInput: zoneFormData,
+      //   },
+      // });
+      const data = await editCurrentZone.mutateAsync({
+        propertyName,
+        zoneData: zoneFormData,
+        zoneId,
       });
       window.location.reload();
-      if (!data) {
-        throw new Error('something went wrong!');
-      }
 
       // const { token, user } = data.addUser;
       // // TODO apply login
@@ -183,7 +197,7 @@ const EditZoneForm = ({
 EditZoneForm.propTypes = {
   zoneId: PropTypes.string,
   area: PropTypes.string,
-  stationNumber: PropTypes.string,
+  stationNumber: PropTypes.number,
   stationName: PropTypes.string,
   type: PropTypes.string,
   propertyName: PropTypes.string,

@@ -1,8 +1,15 @@
 // import PropTypes from 'prop-types';
-import { useQuery } from '@apollo/client';
+// import { useQuery } from '@apollo/client';
 
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Box,
@@ -12,7 +19,8 @@ import {
   Button,
   Link,
 } from '@material-ui/core';
-import { GET_ME } from '../utils/apiQueries';
+import { getMe } from '../utils/apiRequest';
+// import { GET_ME } from '../utils/apiQueries';
 import Property from './Property';
 
 const Dashboard = () => {
@@ -39,25 +47,27 @@ const Dashboard = () => {
     },
   }));
   const classes = useStyles();
-  const { loading, error: userErrorRes, data: userDataRes } = useQuery(GET_ME);
-  const userData = userDataRes?.me;
+  // const { loading, error: userErrorRes, data: userDataRes } = useQuery(GET_ME);
+  // const queryClient = useQueryClient;
+  const { isLoading, isError, data, error } = useQuery('todos', getMe);
 
-  if (userErrorRes) {
+  const userData = data;
+  // console.log(userData);
+  if (isError) {
     return (
       <Container maxWidth="md" className={classes.root}>
-        <h2>{userErrorRes.message}</h2>
+        <h2>{error}</h2>
       </Container>
     );
   }
 
-  if (loading) {
+  if (isLoading) {
     return (
       <Container maxWidth="md" className={classes.root}>
         <h2>LOADING...</h2>;
       </Container>
     );
   }
-  console.log(userData);
   if (userData.properties.length === 0) {
     return (
       <Container maxWidth="md" className={classes.root}>
