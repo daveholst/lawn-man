@@ -41,6 +41,7 @@ export const addProperty = async (newPropertyData) => {
     url: '/user/property',
     data: newPropertyData,
   });
+  return res.data;
 };
 
 export const addZones = async (newZonesData) => {
@@ -49,4 +50,14 @@ export const addZones = async (newZonesData) => {
     url: '/user/zones',
     data: newZonesData,
   });
+  return res.data;
+};
+
+export const editZone = async (newZoneData) => {
+  const res = await request({
+    method: 'put',
+    url: '/user/zones',
+    data: newZoneData,
+  });
+  return res.data;
 };

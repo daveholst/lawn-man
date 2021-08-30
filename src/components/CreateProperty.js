@@ -18,9 +18,10 @@ import {
   Hidden,
 } from '@material-ui/core';
 // import { ADD_PROPERTY, ADD_ZONES } from '../utils/apiMutations';
-import { useMutation } from 'react-query';
+import { useMutation, query } from 'react-query';
 import { addProperty, addZones } from '../utils/apiRequest';
 import { stationNames } from '../utils/openSprinkler';
+
 // import { GET_ME } from '../utils/apiQueries';
 
 const CreateProperty = () => {
@@ -59,12 +60,14 @@ const CreateProperty = () => {
   //     refetchQueries: [{ query: GET_ME }],
   //   });
 
-  // TODO: Make these invalidate the cached getMe response
-  const addNewProperty = useMutation((newPropertyData) =>
-    addProperty(newPropertyData)
+  const addNewProperty = useMutation(
+    (newPropertyData) => addProperty(newPropertyData)
+    // { onSuccess: () => useQueryClient.invalidateQueries() }
   );
 
-  const addNewZones = useMutation((newZonesData) => addZones(newZonesData));
+  const addNewZones = useMutation((newZonesData) => addZones(newZonesData), {
+    // onSuccess: () => useQueryClient.invalidateQueries(),
+  });
 
   // const [createZones, { _createZonesError, _createZonesData }] = useMutation(
   //   ADD_ZONES,
