@@ -35,10 +35,18 @@ export const signup = async (newUserData) => {
   return res.data;
 };
 
-export const addProperty = async (newPropertyDaya) => {
+export const addProperty = async (newPropertyData) => {
   const res = await request({
     method: 'post',
     url: '/user/property',
-    data: newPropertyDaya,
+    data: newPropertyData,
+  });
+};
+
+export const addZones = async (newZonesData) => {
+  const res = await request({
+    method: 'post',
+    url: '/user/zones',
+    data: newZonesData,
   });
 };
