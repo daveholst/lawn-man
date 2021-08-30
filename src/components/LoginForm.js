@@ -7,8 +7,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import { useMutation } from 'react-query';
 import Auth from '../utils/authUtils';
 // import { LOGIN_USER } from '../utils/apiMutations';
+import { login } from '../utils/apiRequest';
 
 const LoginForm = ({ handleClose }) => {
   // styling
@@ -38,6 +40,7 @@ const LoginForm = ({ handleClose }) => {
   const [showPasswordAlert, setPasswordShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
 
+  const loginUser = useMutation((loginUserData) => login(loginUserData));
   // mutation for login user
   // const [loginUser, { _loginUserError, _loginUserData }] =
   // useMutation(LOGIN_USER);
@@ -59,22 +62,25 @@ const LoginForm = ({ handleClose }) => {
       // });
       const { data } = await axios({
         method: 'post',
-        url: 'http://localhost:3001/api/user/login',
+        url:
+          process.env.NODE_ENV === 'production'
+            ? 'https://lawn-man-server-rest.holst.club/api'
+            : 'http://localhost:3001/api/user/login',
         data: { ...userFormData },
         headers: { Authorization: Auth.getToken() },
       });
-
+      // const data = await loginUser.mutateAsync({ ...userFormData });
+      // console.log(data);
       if (!data) {
         throw new Error('something went wrong!');
       }
-      console.log(data);
 
-      const { token, user } = data;
       // login and save token
-      Auth.login(token);
+      Auth.login(data.token);
       handleClose();
       // redirect to dashboard
     } catch (err) {
+      console.dir(err);
       if (err.response.data.message === 'No user with that email!') {
         setAlertText(err.response.data.message);
         setEmailShowAlert(true);

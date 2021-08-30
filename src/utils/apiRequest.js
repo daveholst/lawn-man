@@ -4,10 +4,9 @@ import auth from './authUtils';
 const client = axios.create({
   baseURL:
     //! build not honoring the enviro variable and deploying with localhost as baseURL -- not sure why?
-    // process.env.NODE_ENV === 'production'
-    //   ? 'https://lawn-man-server-rest.holst.club/api'
-    //   : 'http://localhost:3001/api',
-    'https://lawn-man-server-rest.holst.club/api',
+    process.env.NODE_ENV === 'production'
+      ? 'https://lawn-man-server-rest.holst.club/api'
+      : 'http://localhost:3001/api',
 });
 
 const request = async ({ ...options }) => {
@@ -62,4 +61,19 @@ export const editZone = async (newZoneData) => {
     data: newZoneData,
   });
   return res.data;
+};
+
+export const login = async (loginData) => {
+  // try {
+  console.log(loginData);
+  const res = await request({
+    method: 'post',
+    url: '/user/login',
+    data: loginData,
+  });
+  console.log(res);
+  return res.data;
+  // } catch (error) {
+  //   throw new Error(error);
+  // }
 };
