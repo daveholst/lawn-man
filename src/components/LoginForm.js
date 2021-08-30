@@ -64,7 +64,7 @@ const LoginForm = ({ handleClose }) => {
         method: 'post',
         url:
           process.env.NODE_ENV === 'production'
-            ? 'https://lawn-man-server-rest.holst.club/api'
+            ? 'https://lawn-man-server-rest.holst.club/api/user/login'
             : 'http://localhost:3001/api/user/login',
         data: { ...userFormData },
         headers: { Authorization: Auth.getToken() },
