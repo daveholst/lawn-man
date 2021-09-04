@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from '@apollo/client';
+// import { useQuery } from '@apollo/client';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,17 +12,22 @@ import {
   Button,
   Link,
 } from '@material-ui/core';
-import { GET_FERTILISERS } from '../utils/apiQueries';
+// import { GET_FERTILISERS } from '../utils/apiQueries';
+import { useQuery } from 'react-query';
+import { getFert } from '../utils/apiRequest';
 import FertiliserCard from './FertiliserCard';
 
 const Fertilisers = () => {
-  const {
-    loading,
-    error: fertErrorRes,
-    data: fertDataRes,
-  } = useQuery(GET_FERTILISERS);
-  const fertData = fertDataRes?.fertilisers;
+  // const {
+  //   loading,
+  //   error: fertErrorRes,
+  //   data: fertDataRes,
+  // } = useQuery(GET_FERTILISERS);
+  const fertResponse = useQuery('fert', getFert);
+
+  const fertData = fertResponse?.data;
   console.log(fertData);
+
   const useStyles = makeStyles((theme) => ({
     root: {
       marginTop: '1rem',
@@ -42,7 +47,7 @@ const Fertilisers = () => {
     },
   }));
   const classes = useStyles();
-  if (loading) {
+  if (fertData.isLoading) {
     return (
       <Container maxWidth="md" className={classes.root}>
         <Typography variant="h2">Loading...</Typography>
