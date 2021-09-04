@@ -18,7 +18,7 @@ import {
   Hidden,
 } from '@material-ui/core';
 // import { ADD_PROPERTY, ADD_ZONES } from '../utils/apiMutations';
-import { useMutation, query } from 'react-query';
+import { useMutation } from 'react-query';
 import { addProperty, addZones } from '../utils/apiRequest';
 import { stationNames } from '../utils/openSprinkler';
 

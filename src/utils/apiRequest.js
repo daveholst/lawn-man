@@ -71,10 +71,20 @@ export const login = async (loginData) => {
   });
   return res.data;
 };
+
 export const getFert = async () => {
   const res = await request({
     method: 'get',
     url: '/fert/all',
+  });
+  return res.data;
+};
+
+export const runManualProgram = async (programData) => {
+  const res = await request({
+    method: 'post',
+    url: '/prog/manual',
+    data: programData,
   });
   return res.data;
 };

@@ -11,8 +11,8 @@ import {
   Divider,
 } from '@material-ui/core';
 
-import { useQueries, useQuery } from 'react-query';
-import { getFert, getMe } from '../utils/apiRequest';
+import { useQueries, useMutation } from 'react-query';
+import { getFert, getMe, runManualProgram } from '../utils/apiRequest';
 
 import ZoneCard from './ZoneCard';
 import RecipeCard from './RecipeCard';
@@ -61,12 +61,6 @@ const CreateFertigate = () => {
     fert2Index: '',
     fert3Name: '',
     fert3Index: '',
-    type: '',
-    description: '',
-    applicationRate: '',
-    manufacturerLink: '',
-    bunningsLink: '',
-    imageLink: '',
   });
 
   const handleInputChange = async (e) => {
@@ -75,12 +69,29 @@ const CreateFertigate = () => {
     setFertigationFormData({ ...fertigationFormData, [name]: value });
     // console.log(fertigationFormData);
   };
+
+  const runProgram = useMutation((programData) =>
+    runManualProgram(programData)
+  );
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(fertigationFormData);
     try {
       // TODO Send data to DB
       // TODO new api route for run manual programme
+      const programData = {
+        propertyId: userData.properties[fertigationFormData.propertyIndex]._id,
+        stationNumber:
+          userData.properties[fertigationFormData.propertyIndex].zones[
+            fertigationFormData.stationIndex
+          ].stationNumber,
+        fertRuntime: '1200', // in seconds - 20min station run time
+      };
+      console.log(userData);
+      console.log(programData);
+      const runStatus = await runProgram.mutate(programData);
+
       // const fertiliser = await createFertiliser({
       //   variables: { addFertiliserInput: fertigationFormData },
       // });
@@ -105,9 +116,7 @@ const CreateFertigate = () => {
     }
   };
   const classes = useStyles();
-  // if (loading || fertLoading) {
-  //   return <h1>LOADING....</h1>;
-  // }
+
   if (queryResults[0].isLoading || queryResults[1].isLoading) {
     return <h1>LOADING....</h1>;
   }
