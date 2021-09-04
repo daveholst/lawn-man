@@ -80,6 +80,15 @@ export const getFert = async () => {
   return res.data;
 };
 
+export const addFert = async (fertData) => {
+  const res = await request({
+    method: 'post',
+    url: '/fert/add',
+    data: fertData,
+  });
+  return res.data;
+};
+
 export const runManualProgram = async (programData) => {
   const res = await request({
     method: 'post',

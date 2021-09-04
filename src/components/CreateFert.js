@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
+import { useQuery, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -15,8 +16,9 @@ import {
   Link,
   Divider,
 } from '@material-ui/core';
-import { ADD_FERTILISER } from '../utils/apiMutations';
-import { GET_FERTILISERS } from '../utils/apiQueries';
+// import { ADD_FERTILISER } from '../utils/apiMutations';
+// import { GET_FERTILISERS } from '../utils/apiQueries';
+import { addFert } from '../utils/apiRequest';
 
 const CreateFert = () => {
   const useStyles = makeStyles((theme) => ({
@@ -46,10 +48,16 @@ const CreateFert = () => {
   }));
   const history = useHistory();
 
-  const [createFertiliser, { _createFertiliserError, _createFertiliserData }] =
-    useMutation(ADD_FERTILISER, {
-      refetchQueries: [{ query: GET_FERTILISERS }],
-    });
+  // const [createFertiliser, { _createFertiliserError, _createFertiliserData }] =
+  //   useMutation(ADD_FERTILISER, {
+  //     refetchQueries: [{ query: GET_FERTILISERS }],
+  //   });
+
+  const addFertiliser = useMutation((fertData) => addFert(fertData), {
+    onSuccess: () => {
+      history.push('/fertilisers');
+    },
+  });
 
   const [fertiliserFormData, setFertiliserFormData] = useState({
     productBrand: '',
@@ -61,6 +69,8 @@ const CreateFert = () => {
     bunningsLink: '',
     imageLink: '',
   });
+
+  const [formError, setFormError] = useState(false);
   // TODO add mutation
 
   const handleInputChange = async (e) => {
@@ -73,11 +83,20 @@ const CreateFert = () => {
     console.log(fertiliserFormData);
     try {
       // TODO Send data to DB
-      const fertiliser = await createFertiliser({
-        variables: { addFertiliserInput: fertiliserFormData },
-      });
+      if (
+        !(
+          fertiliserFormData.productBrand &&
+          fertiliserFormData.productName &&
+          fertiliserFormData.type &&
+          fertiliserFormData.applicationRate
+        )
+      ) {
+        setFormError(true);
+        return;
+      }
+      const fertiliser = await addFertiliser.mutate(fertiliserFormData);
       console.log(fertiliser);
-      history.push('/fertilisers');
+      // history.push('/fertilisers');
       if (!fertiliser) {
         throw new Error('something went wrong!');
       }
@@ -103,6 +122,8 @@ const CreateFert = () => {
           variant="outlined"
           fullWidth
           onChange={handleInputChange}
+          required="true"
+          error={formError}
         />
         <TextField
           className={classes.field}
@@ -111,11 +132,15 @@ const CreateFert = () => {
           variant="outlined"
           fullWidth
           onChange={handleInputChange}
+          required="true"
+          error={formError}
         />
         <FormControl>
           <InputLabel
             className={classes.label}
             htmlFor="outlined-age-native-simple"
+            required="true"
+            error={formError}
           >
             Product Type
           </InputLabel>
@@ -124,10 +149,6 @@ const CreateFert = () => {
             fullWidth
             variant="outlined"
             native
-            // value={state.age}
-            // value=""
-            // onChange={handleChange}
-            // onChange=""
             label="Product Type"
             onChange={handleInputChange}
             inputProps={{
@@ -163,6 +184,8 @@ const CreateFert = () => {
           className={classes.field}
           name="applicationRate"
           label="Application rate (mL / m2)"
+          required="true"
+          error={formError}
           variant="outlined"
           fullWidth
           onChange={handleInputChange}

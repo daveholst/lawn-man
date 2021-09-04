@@ -47,7 +47,7 @@ const Fertilisers = () => {
     },
   }));
   const classes = useStyles();
-  if (fertData.isLoading) {
+  if (fertResponse.isLoading) {
     return (
       <Container maxWidth="md" className={classes.root}>
         <Typography variant="h2">Loading...</Typography>
