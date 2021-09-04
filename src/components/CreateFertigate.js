@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
   Container,
   FormControl,
-  Paper,
-  Input,
   InputLabel,
-  FormHelperText,
-  TextField,
   Button,
   Select,
-  Link,
   Divider,
 } from '@material-ui/core';
-import { ADD_FERTILISER, RUN_MAN_PROG } from '../utils/apiMutations';
-import { GET_FERTILISERS, GET_ME } from '../utils/apiQueries';
+
+import { useQueries, useQuery } from 'react-query';
+import { getFert, getMe } from '../utils/apiRequest';
+
 import ZoneCard from './ZoneCard';
 import RecipeCard from './RecipeCard';
 
@@ -49,22 +45,12 @@ const CreateFertigate = () => {
   }));
   const history = useHistory();
 
-  const [createFertiliser, { _createFertiliserError, _createFertiliserData }] =
-    useMutation(ADD_FERTILISER, {
-      refetchQueries: [{ query: GET_FERTILISERS }],
-    });
-
-  const [runManualProgram, { _runManualError, _runManualData }] =
-    useMutation(RUN_MAN_PROG);
-
-  const { loading, error: userErrorRes, data: userDataRes } = useQuery(GET_ME);
-  const userData = userDataRes?.me;
-  const {
-    loading: fertLoading,
-    error: fertErrorRes,
-    data: fertDataRes,
-  } = useQuery(GET_FERTILISERS);
-  const fertData = fertDataRes?.fertilisers;
+  const queryResults = useQueries([
+    { queryKey: 'fert', queryFn: getFert },
+    { queryKey: 'me', queryFn: getMe },
+  ]);
+  const fertData = queryResults[0].data;
+  const userData = queryResults[1].data;
 
   const [fertigationFormData, setFertigationFormData] = useState({
     propertyIndex: '0',
@@ -82,7 +68,6 @@ const CreateFertigate = () => {
     bunningsLink: '',
     imageLink: '',
   });
-  // TODO add mutation
 
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
@@ -95,36 +80,37 @@ const CreateFertigate = () => {
     console.log(fertigationFormData);
     try {
       // TODO Send data to DB
+      // TODO new api route for run manual programme
       // const fertiliser = await createFertiliser({
       //   variables: { addFertiliserInput: fertigationFormData },
       // });
-
-      const runStatus = await runManualProgram({
-        variables: {
-          propertyId:
-            userData.properties[fertigationFormData.propertyIndex]._id,
-          stationNumber:
-            userData.properties[fertigationFormData.propertyIndex].zones[
-              fertigationFormData.stationIndex
-            ].stationNumber,
-          fertRuntime: '1200', // in seconds - 20min station run time
-        },
-      });
-
-      console.log(runStatus);
+      // const runStatus = await runManualProgram({
+      //   variables: {
+      //     propertyId:
+      //       userData.properties[fertigationFormData.propertyIndex]._id,
+      //     stationNumber:
+      //       userData.properties[fertigationFormData.propertyIndex].zones[
+      //         fertigationFormData.stationIndex
+      //       ].stationNumber,
+      //     fertRuntime: '1200', // in seconds - 20min station run time
+      //   },
+      // });
+      // console.log(runStatus);
       // history.push('/fertilisers');
-      if (!runStatus) {
-        throw new Error('something went wrong!');
-      }
+      // if (!runStatus) {
+      //   throw new Error('something went wrong!');
+      // }
     } catch (err) {
       console.error(err);
     }
   };
   const classes = useStyles();
-  if (loading || fertLoading) {
+  // if (loading || fertLoading) {
+  //   return <h1>LOADING....</h1>;
+  // }
+  if (queryResults[0].isLoading || queryResults[1].isLoading) {
     return <h1>LOADING....</h1>;
   }
-
   return (
     <Container maxWidth="sm" className={classes.root}>
       <Typography variant="h2" className={classes.h2}>

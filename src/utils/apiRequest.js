@@ -64,16 +64,17 @@ export const editZone = async (newZoneData) => {
 };
 
 export const login = async (loginData) => {
-  // try {
-  console.log(loginData);
   const res = await request({
     method: 'post',
     url: '/user/login',
     data: loginData,
   });
-  console.log(res);
   return res.data;
-  // } catch (error) {
-  //   throw new Error(error);
-  // }
+};
+export const getFert = async () => {
+  const res = await request({
+    method: 'get',
+    url: '/fert/all',
+  });
+  return res.data;
 };

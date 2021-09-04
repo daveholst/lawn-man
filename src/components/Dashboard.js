@@ -3,13 +3,7 @@
 
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query';
+import { useQuery } from 'react-query';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Box,

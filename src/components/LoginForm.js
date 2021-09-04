@@ -40,7 +40,7 @@ const LoginForm = ({ handleClose }) => {
   const [showPasswordAlert, setPasswordShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
 
-  const loginUser = useMutation((loginUserData) => login(loginUserData));
+  // const loginUser = useMutation((loginUserData) => login(loginUserData));
   // mutation for login user
   // const [loginUser, { _loginUserError, _loginUserData }] =
   // useMutation(LOGIN_USER);
