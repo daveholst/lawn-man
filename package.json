@@ -14,7 +14,7 @@
     "@testing-library/react": "^12.1.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.9.2",
+    "@types/node": "^16.7.13",
     "@types/react": "^17.0.21",
     "@types/react-dom": "^17.0.9",
     "axios": "^0.21.1",
@@ -26,7 +26,7 @@
     "react-query": "^3.21.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "typescript": "^4.4.3",
+    "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -34,14 +34,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "wesbos/typescript"
-    ],
-    "rules": {
-      "class-methods-use-this": 1
-    }
   },
   "browserslist": {
     "production": [
@@ -56,18 +48,23 @@
     ]
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.15.4",
+    "@babel/preset-react": "^7.14.5",
     "@types/material-ui": "^0.21.9",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
+    "@typescript-eslint/parser": "^4.31.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.8.1",
-    "eslint-config-airbnb": "^18.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-typescript": "^14.0.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-config-wesbos": "^2.0.1",
-    "eslint-plugin-html": "^6.1.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-config-wesbos": "2.0.1",
+    "eslint-plugin-html": "^6.1.2",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.2",
-    "prettier": "^2.1.1"
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.3.2"
   }
 }

@@ -1,8 +1,0 @@
-{
-  "extends": ["wesbos/typescript"],
-  "rules": {
-    "class-methods-use-this": 1,
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["error"]
-  }
-}
