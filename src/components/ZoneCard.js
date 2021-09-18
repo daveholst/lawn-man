@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,11 +9,6 @@ import {
   ButtonBase,
   Button,
   Link,
-  Select,
-  FormControl,
-  TextField,
-  InputLabel,
-  Container,
 } from '@material-ui/core';
 import EditZoneForm from './EditZoneForm';
 
