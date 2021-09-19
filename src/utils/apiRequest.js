@@ -97,3 +97,11 @@ export const runManualProgram = async (programData) => {
   });
   return res.data;
 };
+
+export const getJuiceBoxStatus = async () => {
+  const res = await request({
+    method: 'get',
+    url: '/juicebox/status',
+  });
+  return res.data;
+};

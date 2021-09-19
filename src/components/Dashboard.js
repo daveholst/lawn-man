@@ -16,6 +16,7 @@ import {
 import { getMe } from '../utils/apiRequest';
 // import { GET_ME } from '../utils/apiQueries';
 import Property from './Property';
+import JuiceBoxStatusCard from './JuiceBoxStatus';
 
 const Dashboard = () => {
   const useStyles = makeStyles((theme) => ({
@@ -43,7 +44,7 @@ const Dashboard = () => {
   const classes = useStyles();
   // const { loading, error: userErrorRes, data: userDataRes } = useQuery(GET_ME);
   // const queryClient = useQueryClient;
-  const { isLoading, isError, data, error } = useQuery('todos', getMe);
+  const { isLoading, isError, data, error } = useQuery('todos', getMe); //! not sure why this is todos?
 
   const userData = data;
   // console.log(userData);
@@ -93,6 +94,7 @@ const Dashboard = () => {
       <Typography className={classes.h2} variant="h2">
         {userData.firstName}'s Dashboard
       </Typography>
+      <JuiceBoxStatusCard />
       <Divider />
       {userData.properties.map((propertyData) => (
         <Property
