@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-import { string } from 'prop-types';
 
 interface ZoneData {
   stationName: string;
@@ -39,9 +38,6 @@ const stationNames = async ({
       },
     }
   );
-
-  // const stationNames = res.data.snames;
-
   const zones: Array<ZoneData> = res.data.snames.map(
     (stnName: string, i: number): ZoneData => ({
       stationName: stnName,
